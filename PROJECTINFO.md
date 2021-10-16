@@ -79,3 +79,4 @@
   -- DELETE /listings/:listingsid (verify: sessionid is in browser so we check for that to ensure a user is can only edit there own listing)
 
 ### Wireframes
+
