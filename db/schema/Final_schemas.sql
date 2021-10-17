@@ -1,6 +1,15 @@
 -- RUN THIS file
--- CREATE table users
 
+-- Grant privliges to database user
+ALTER USER labber WITH SUPERUSER;
+
+-- REVOKE CONNECT ON DATABASE midterm FROM PUBLIC;
+-- GRANT ALL PRIVILEGES ON DATABASE midterm to labber;
+
+-- REVOKE ALL ON ALL TABLES IN SCHEMA public FROM PUBLIC;
+-- GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO labber;
+
+-- CREATE table users
 DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
