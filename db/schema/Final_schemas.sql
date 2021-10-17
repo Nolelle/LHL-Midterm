@@ -1,8 +1,6 @@
 -- RUN THIS file
-
 -- Grant privliges to database user
 ALTER USER labber WITH SUPERUSER;
-
 
 -- CREATE table users
 DROP TABLE IF EXISTS users CASCADE;
@@ -24,7 +22,6 @@ CREATE TABLE favourites (
 
 
 -- CREATE the Listings table
-
 DROP TABLE IF EXISTS listings CASCADE;
 CREATE TABLE listings (
   id SERIAL PRIMARY KEY NOT NULL,
