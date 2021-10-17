@@ -4,7 +4,6 @@ DROP TABLE IF EXISTS listings CASCADE;
 CREATE TABLE listings (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id),
-  -- comment_id INTEGER REFERENCES comments(id),
   favourite_id INTEGER REFERENCES favourites(id),
   image_url VARCHAR(255),
   condition VARCHAR(255),
