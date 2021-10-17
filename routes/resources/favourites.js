@@ -20,10 +20,13 @@ module.exports = (db) => {
   router.get("/", (req, res) => {
     queryGetFavsByUserID(db, req.query.userID)
       .then((favouriteRows) => {
-        console.log(favouriteRows)
+        res.status(200)
+        res.send(favouriteRows)
+
       })
       .catch((error) => {
         console.log(error)
+        res.send(error)
       })
   });
   return router;
