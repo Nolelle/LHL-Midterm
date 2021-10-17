@@ -57,28 +57,18 @@
 
 - Get Routes
   GET / (Home Page: (NAV bar: Search bar, login), (page body: most recent listings))
-
   GET /favorites/ (render a favorites page with users favorites) -- Check with mentor if needs userID
-
   GET /listings/new (render a form which would allow users to enter information about there product they are selling (ex. price, condition, images, etc))
-
   GET /listings/:listingid (render a page with just that posting, will show comments (if any) for that posting) -- Check with mentor
-
   GET /listings/:listingid/edit (verify: sessionid is in browser so we check for that to ensure a user is can only edit there own listing)
 
 - Post Routes
 
-  POST /listing/:listingid/comments (a button to create create a new comment, in the comments section under a listing) -- Check with mentor
-
+  POST/listing/:listingid/comments (a button to create create a new comment, in the comments section under a listing) -- Check with mentor
   POST /listings (post new created posting to posting table, and then redirect to /)
-
   POST /login/:id (login user id, render / show loggedin as: and logout button )
-
   POST /logout (clear cookies, redirect to /, show loggedin field)
-
   POST /favorites (with userID, and postID and turn the liked bool to true or false)
-
-- DELETE ROUTES
-  -- DELETE /listings/:listingsid (verify: sessionid is in browser so we check for that to ensure a user is can only edit there own listing)
+  PATH /listings/:listingsid (verify: sessionid is in browser so we check for that to ensure a user is can only edit there own listing)
 
 ### Wireframes
