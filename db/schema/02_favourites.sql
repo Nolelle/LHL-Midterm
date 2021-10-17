@@ -2,6 +2,8 @@ DROP TABLE IF EXISTS favourites CASCADE;
 CREATE TABLE favourites (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id),
-  listing_id INTEGER REFERENCES Listings(id),
-  liked BOOLEAN,
+  liked BOOLEAN
   );
+
+
+-- FK will be create on the file 05
