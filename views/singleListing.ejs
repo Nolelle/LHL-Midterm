@@ -16,52 +16,43 @@
 
         <!-- this div contains the big box of information relative to the post -->
         <div class="description-box" style="background-color: aquamarine;">
-          <h3>Elmo Chair</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore
-              magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-              commodo
-              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-              pariatur.</p>
-            <button style="background-color: orange;">Edit</button>
-            <button style="background-color: #f44336;">Delete</button>
-            <!-- div here for moving price/condition (paired together) -->
-            <div>
-              <p>$10,000</p>
-              <p>Near Mint</p>
-            </div>
+          <h3>Elmo Chair</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore
+            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+            commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur.</p>
+          <button style="background-color: orange;">Edit</button>
+          <button style="background-color: #f44336;">Delete</button>
+          <!-- div here for moving price/condition (paired together) -->
+          <div>
+            <p>$10,000</p>
+            <p>Near Mint</p>
+          </div>
         </div>
         <!-- Div here for comments -->
         <h1><b>Comments</b></h1>
-        <div style="background-color: lightgray;">
-          <!-- userID stays in a div, Text in another -->
-          <div>
-            UserID-Buyer
-            <p>Hodor. Hodor hodor, hodor. Hodor hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor; hodor hodor
-              hodor. Hodor. Hodor hodor; hodor hodor - hodor, hodor, hodor hodor. Hodor, hodor. Hodor. Hodor, hodor
-              hodor
-              hodor; hodor hodor; hodor hodor hodor! Hodor hodor HODOR! Hodor hodor... Hodor hodor hodor...</p>
-          </div>
-          <div style="background-color: lightgreen;">
-            UserID-Seller
-            <p>Hodor. Hodor hodor, hodor. Hodor hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor; hodor hodor
-              hodor. Hodor. Hodor hodor; hodor hodor - hodor, hodor, hodor hodor. Hodor, hodor. Hodor. Hodor, hodor
-              hodor
-              hodor; hodor hodor; hodor hodor hodor! Hodor hodor HODOR! Hodor hodor... Hodor hodor hodor...</p>
-          </div>
-        </div>
-        <div class="comment-box-container" style="background-color: lightpink;">
-          <!-- <section class="new-tweet"> Maybe change all colored area into sections? -->
-          <form method="POST" action="/comments">
-            <div class="text-input-container">
-              <textarea placeholder="Negotiate Here"></textarea>
+        <% for (let comment of comments) {%>
+          <div style="background-color: lightgray;">
+            <!-- userID stays in a div, Text in another -->
+            <div>
+              UserID-Buyer
+              <p><%= comment["msg_text"] %></p>
             </div>
-            <div class="submit-container">
-              <button type="submit">Comment</button>
+          </div>
+          <% } %>
+            <div class="comment-box-container" style="background-color: lightpink;">
+              <!-- <section class="new-tweet"> Maybe change all colored area into sections? -->
+              <form method="POST" action="/comments">
+                <div class="text-input-container">
+                  <textarea placeholder="Negotiate Here"></textarea>
+                </div>
+                <div class="submit-container">
+                  <button type="submit">Comment</button>
+                </div>
+              </form>
             </div>
-          </form>
-        </div>
-        </div>
       </main>
 </body>
 
