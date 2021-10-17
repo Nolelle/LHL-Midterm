@@ -35,15 +35,15 @@ app.use(express.static("public"));
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
-const usersRoutes = require("./routes/users");
-const widgetsRoutes = require("./routes/widgets");
-
+const usersResourceRoutes = require("./routes/resources/users");
+const listingsResourceRoutes = require("./routes/resources/listings");
+const listingsTemplateRoutes = require("./routes/templates/listings")
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-app.use("/api/users", usersRoutes(db));
-app.use("/api/widgets", widgetsRoutes(db));
+app.use("/api/users", usersResourceRoutes(db));
+app.use("/api/listings", listingsResourceRoutes(db));
 // Note: mount other resources here, using the same pattern above
-
+app.use("/listings", listingsTemplateRoutes())
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
