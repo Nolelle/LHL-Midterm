@@ -5,5 +5,3 @@ CREATE TABLE favourites (
   liked BOOLEAN
   );
 
-
--- FK will be create on the file 05
