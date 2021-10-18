@@ -40,12 +40,14 @@ const createListingRoutes = require("./routes/templates/createListing");
 const listingRoutes = require("./routes/templates/listings");
 const favouriteRoutes = require("./routes/resources/favourites")
 const commentRoutes = require("./routes/resources/comments")
+const listingrequire = require("./routes/resources/listings")
 
 // use Routes
 // resource routes
 app.use("/", indexRoutes(db));
 app.use("/api/favourites", favouriteRoutes(db))
 app.use("/api/comments", commentRoutes(db))
+app.use("/api/listings", listingrequire(db))
 // template routes
 app.use("/createListing", createListingRoutes());
 app.use("/listings", listingRoutes(makeRequest));
