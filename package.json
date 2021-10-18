@@ -19,6 +19,9 @@
     "morgan": "^1.9.1",
     "pg": "^8.5.0",
     "pg-native": "^3.0.0",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
+    "request-promise-native": "^1.0.9",
     "sass": "^1.35.1"
   },
   "devDependencies": {

@@ -7,6 +7,7 @@ const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
+const makeRequest = require('request-promise-native');
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -36,16 +37,18 @@ app.use(express.static("public"));
 // require routes
 const indexRoutes = require("./routes/templates/index");
 const createListingRoutes = require("./routes/templates/createListing");
-const singleListingRoutes = require("./routes/templates/singleListing");
+const listingRoutes = require("./routes/templates/listings");
 const favouriteRoutes = require("./routes/resources/favourites")
 const commentRoutes = require("./routes/resources/comments")
 
 // use Routes
+// resource routes
 app.use("/", indexRoutes(db));
 app.use("/api/favourites", favouriteRoutes(db))
 app.use("/api/comments", commentRoutes(db))
+// template routes
 app.use("/createListing", createListingRoutes());
-app.use("/singleListing", singleListingRoutes());
+app.use("/listings", listingRoutes(makeRequest));
 
 
 
