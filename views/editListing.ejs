@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Home Page</title>
+  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+  <script type="text/javascript" src="/scripts/app.js"></script>
+</head>
+
+<body>
+  <%- include('partials/nav-bar') %>
+    <%- include('partials/leftSearchBar') %>
+      <main style="margin: 1em;">
+        <!-- Image -->
+        <img src="<%= listing.url %>" style="height:100px;"></img>
+
+        <!-- this div contains the big box of information relative to the post -->
+        <div class="description-box" style="background-color: aquamarine;">
+
+          <button style="background-color: orange;">Edit</button>
+          <button style="background-color: #f44336;">Delete</button>
+          <!-- div here for moving price/condition (paired together) -->
+          <!-- todo: add edit form -->
+          <div>
+            <p><%=  listing.price %></p>
+            <p><%=  listing.condition %></p>
+          </div>
+        </div>
+
+      </main>
+</body>
+
+</html>

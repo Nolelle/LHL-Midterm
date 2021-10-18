@@ -42,17 +42,13 @@ module.exports = (makeRequest) => {
     makeRequest(`http://localhost:8080/api/listings/${req.params.id}`)
       .then((listing) => {
         templateVars["listing"] = JSON.parse(listing)
-        res.render("singleListing", templateVars);
+        // TODO: Render editListing
+        res.render("editListing", templateVars);
       })
       .catch(error => {
         console.log(error)
       })
   });
-  //POST /listings/id/edit
-  router.post("/:id/edit", (req, res) => {
-    updateListingById(db, req.params.id,)
-    .then((data) => {
-    });
-  });
+
   return router;
 };
