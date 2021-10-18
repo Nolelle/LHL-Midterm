@@ -8,13 +8,11 @@
 const express = require("express");
 const router = express.Router();
 
-module.exports = (makeRequest) => {
-  //GET /
-  router.get("/", (req, res) => {
-    const templateVars = {
-      cooke: req.cookie["email"],
-    };
-    res.render("index", templateVars);
+module.exports = () => {
+  //POST logout
+  router.post("/", (req, res) => {
+    res.clearCookie("email");
+    res.redirect("/");
   });
   return router;
 };

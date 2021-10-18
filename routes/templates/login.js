@@ -9,12 +9,18 @@ const express = require("express");
 const router = express.Router();
 
 module.exports = (makeRequest) => {
-  //GET /
+  //GET login
   router.get("/", (req, res) => {
-    const templateVars = {
-      cooke: req.cookie["email"],
-    };
-    res.render("index", templateVars);
+    res.render("login");
+  });
+
+  //POST login
+  router.post("/", (req, res) => {
+    const inputEmail = req.body.email;
+    const inputPassword = req.body.password;
+
+    res.cookie("email", inputEmail);
+    res.redirect("/");
   });
   return router;
 };
