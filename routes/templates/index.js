@@ -12,8 +12,9 @@ module.exports = (makeRequest) => {
   //GET /
   router.get("/", (req, res) => {
     const templateVars = {
-      cooke: req.cookie["email"],
+      cookie: req.cookies.email,
     };
+    console.log(templateVars);
     res.render("index", templateVars);
   });
   return router;
