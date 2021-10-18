@@ -38,10 +38,12 @@ const indexRoutes = require("./routes/templates/index");
 const createListingRoutes = require("./routes/templates/createListing");
 const singleListingRoutes = require("./routes/templates/singleListing");
 const favouriteRoutes = require("./routes/resources/favourites")
+const commentRoutes = require("./routes/resources/comments")
 
 // use Routes
 app.use("/", indexRoutes(db));
 app.use("/api/favourites", favouriteRoutes(db))
+app.use("/api/comments", commentRoutes(db))
 app.use("/createListing", createListingRoutes());
 app.use("/singleListing", singleListingRoutes());
 
