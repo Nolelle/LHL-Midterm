@@ -5,8 +5,6 @@
 const express = require("express");
 const router = express.Router();
 
-
-
 module.exports = (makeRequest) => {
   router.get("/", (req, res) => {
     makeRequest(`http://localhost:8080/api/listings`)

@@ -10,6 +10,12 @@
       <form action="/logout" method="POST">
         <button type="submit">Logout</button>
       </form>
+      <div>
+        <a class="nav-item nav-link" href="/listings/new">Create New Listing</a>
+      </div>
+      <div>
+        <a class="nav-item nav-link" href="/favourites">My Favourite Listings</a>
+      </div>
       <% } else { %>
         <form action="/login" method="GET">
           <button type="submit">Login</button>

@@ -41,7 +41,7 @@ const listingRoutes = require("./routes/templates/listings");
 const createListingRoutes = require("./routes/templates/createListing");
 const loginRoutes = require("./routes/templates/login");
 const logoutRoutes = require("./routes/templates/logout");
-const favouritesRoutes = require("./routes/templates/favourites")
+const favouritesRoutes = require("./routes/templates/favourites");
 
 const userAPIRoutes = require("./routes/resources/users");
 const favouriteAPIRoutes = require("./routes/resources/favourites");

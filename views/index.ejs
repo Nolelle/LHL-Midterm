@@ -3,8 +3,10 @@
 
 <head>
   <title>Home Page</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-  <script type="text/javascript" src="/scripts/app.js"></script>
 </head>
 
 <body>
@@ -15,15 +17,18 @@
           <!-- TO DO: IMAGE URL NOT SHOWING FIX -->
           <% for(const listing of orderedListings) { %>
             <div class="listing">
-              <img src=<%=listing.image_url %>/>
+              <img src=<%=listing.image_url %>>image</img>
               <%= listing.price %>
                 <%= listing.condition %>
                   <%= listing.description %>
             </div>
+            <form action="/listings/<%=listing.id%>" method="GET">
+              <button type="submit">View</button>
+            </form>
             <% } %>
         </div>
       </main>
-      <script type="text/javascript" src="../public/scripts/onclick.js"></script>
+
 </body>
 
 </html>
