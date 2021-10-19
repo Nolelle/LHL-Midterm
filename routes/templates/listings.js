@@ -6,6 +6,7 @@ const comments = require("../resources/comments");
 const router = express.Router();
 
 module.exports = (makeRequest) => {
+  //We may use this route for our search button
   router.get("/", (req, res) => {
     let templateVars = {
       cookie: req.cookies.email,
@@ -26,18 +27,17 @@ module.exports = (makeRequest) => {
     };
     // req dosent know serverhost (localhost) automatically, so its hard coded into this request
     // TODO: add server host and port to .env file
-    makeRequest(
-      `http://localhost:8080/api/comments?listingID=${req.params.id}`
-    ).then((comments) => {
-      templateVars["comments"] = JSON.parse(comments);
-    });
+    makeRequest(`http://localhost:8080/api/comments?listingID=${req.params.id}`)
+      .then((comments) => {
+        templateVars["comments"] = JSON.parse(comments);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     makeRequest(`http://localhost:8080/api/listings/${req.params.id}`)
       .then((listing) => {
         templateVars["listing"] = JSON.parse(listing);
         res.render("singleListing", templateVars);
-      })
-      .catch((error) => {
-        console.log(error);
       })
       .catch((error) => {
         console.log(error);

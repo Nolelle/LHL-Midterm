@@ -17,12 +17,12 @@
           <!-- TO DO: IMAGE URL NOT SHOWING FIX -->
           <% for(const listing of orderedListings) { %>
             <div class="listing">
-              <img src=<%=listing.image_url %>/>
+              <img src=<%=listing.image_url %>>image</img>
               <%= listing.price %>
                 <%= listing.condition %>
                   <%= listing.description %>
             </div>
-            <form action="/listing/:id" method="GET">
+            <form action="/listings/<%=listing.id%>" method="GET">
               <button type="submit">View</button>
             </form>
             <% } %>
