@@ -3,6 +3,9 @@
 
 <head>
   <title>Home Page</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
 </head>
@@ -17,13 +20,19 @@
         <!-- this div contains the big box of information relative to the post -->
         <div class="description-box" style="background-color: aquamarine;">
           <h3> TODO: ADD TITLE </h3>
-          <p><%=  listing.description %></p>
+          <p>
+            <%= listing.description %>
+          </p>
           <button style="background-color: orange;">Edit</button>
           <button style="background-color: #f44336;">Delete</button>
           <!-- div here for moving price/condition (paired together) -->
           <div>
-            <p><%=  listing.price %></p>
-            <p><%=  listing.condition %></p>
+            <p>
+              <%= listing.price %>
+            </p>
+            <p>
+              <%= listing.condition %>
+            </p>
           </div>
         </div>
         <!-- Div here for comments -->
@@ -32,8 +41,10 @@
           <div style="background-color: lightgray;">
             <!-- userID stays in a div, Text in another -->
             <div>
-              
-              <p><%= comment["msg_text"] %></p>
+
+              <p>
+                <%= comment["msg_text"] %>
+              </p>
             </div>
           </div>
           <% } %>
