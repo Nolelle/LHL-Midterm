@@ -18,7 +18,7 @@ module.exports = (makeRequest) => {
           orderedListings,
           cookie: req.cookies.email,
         };
-        console.log(templateVars.orderedListings);
+        console.log(templateVars.orderedListings[0].price);
         res.render("index", templateVars);
       })
       .catch((error) => {
