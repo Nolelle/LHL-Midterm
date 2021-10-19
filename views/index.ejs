@@ -21,10 +21,10 @@
               <%= listing.price %>
                 <%= listing.condition %>
                   <%= listing.description %>
-                    <form action="/login" method="POST">
-                      <button type="submit">Login</button>
-                    </form>
             </div>
+            <form action="/listing/:id" method="GET">
+              <button type="submit">View</button>
+            </form>
             <% } %>
         </div>
       </main>

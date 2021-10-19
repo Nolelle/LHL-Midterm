@@ -41,6 +41,7 @@ const listingRoutes = require("./routes/templates/listings");
 const createListingRoutes = require("./routes/templates/createListing");
 const loginRoutes = require("./routes/templates/login");
 const logoutRoutes = require("./routes/templates/logout");
+const favouritesRoutes = require("./routes/templates/favourites");
 
 const userAPIRoutes = require("./routes/resources/users");
 const favouriteAPIRoutes = require("./routes/resources/favourites");
@@ -58,6 +59,7 @@ app.use("/api/users", userAPIRoutes(db));
 app.use("/", indexRoutes(makeRequest));
 app.use("/login", loginRoutes());
 app.use("/logout", logoutRoutes());
+app.use("/favourites", favouritesRoutes(makeRequest));
 app.use("/createListing", createListingRoutes());
 app.use("/listings", listingRoutes(makeRequest));
 

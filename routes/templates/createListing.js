@@ -11,7 +11,10 @@ const router = express.Router();
 module.exports = () => {
   //GET /createListing
   router.get("/", (req, res) => {
-    res.render("createListing");
+    let templateVars = {
+      cookie: req.cookies.email,
+    };
+    res.render("newListing", templateVars);
   });
   return router;
 };
