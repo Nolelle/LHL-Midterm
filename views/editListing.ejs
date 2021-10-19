@@ -9,25 +9,41 @@
 
 <body>
   <%- include('partials/nav-bar') %>
-    <%- include('partials/leftSearchBar') %>
-      <main style="margin: 1em;">
-        <!-- Image -->
-        <img src="<%= listing.url %>" style="height:100px;"></img>
+    <main>
+      <form action="/action_page.php">
+        <label>
+          summary:
+          <%= listing.id %>
+        </label>
+        <input placeholder="placeholder"></input><br>
 
-        <!-- this div contains the big box of information relative to the post -->
-        <div class="description-box" style="background-color: aquamarine;">
 
-          <button style="background-color: orange;">Edit</button>
-          <button style="background-color: #f44336;">Delete</button>
-          <!-- div here for moving price/condition (paired together) -->
-          <!-- todo: add edit form -->
-          <div>
-            <p><%=  listing.price %></p>
-            <p><%=  listing.condition %></p>
-          </div>
-        </div>
+        <label>
+          description:
+          <%= listing.description %>
+        </label>
+        <input placeholder="placeholder"></input><br>
 
-      </main>
+
+        <label>
+          price:
+          <%= listing.price %>
+        </label>
+        <input placeholder="placeholder"></input><br>
+
+
+        <label>
+          condition:
+          <%= listing.condition %>
+        </label>
+        <input placeholder="placeholder"></input><br>
+
+
+        <input type="submit" value="Submit">
+
+      </form>
+
+    </main>
 </body>
 
 </html>
