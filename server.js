@@ -41,7 +41,11 @@ const listingRoutes = require("./routes/templates/listings");
 const createListingRoutes = require("./routes/templates/createListing");
 const loginRoutes = require("./routes/templates/login");
 const logoutRoutes = require("./routes/templates/logout");
+<<<<<<< a42b781e9c82f6bc5e409421defae12c83e7424c
 const favouritesRoutes = require("./routes/templates/favourites")
+=======
+const favouritesRoutes = require("./routes/templates/favourites");
+>>>>>>> Refactored based off of pull request #23
 
 const userAPIRoutes = require("./routes/resources/users");
 const favouriteAPIRoutes = require("./routes/resources/favourites");

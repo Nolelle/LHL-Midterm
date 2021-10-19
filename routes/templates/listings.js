@@ -9,7 +9,11 @@ module.exports = (makeRequest) => {
 
   router.get("/", (req, res) => {
     let templateVars = {
+<<<<<<< a42b781e9c82f6bc5e409421defae12c83e7424c
       cookie: req.cookies.email
+=======
+      cookie: req.cookies.email,
+>>>>>>> Refactored based off of pull request #23
     };
     res.render("index", templateVars);
   });
@@ -17,7 +21,11 @@ module.exports = (makeRequest) => {
 
   router.get("/new", (req, res) => {
     let templateVars = {
+<<<<<<< a42b781e9c82f6bc5e409421defae12c83e7424c
       cookie: req.cookies.email
+=======
+      cookie: req.cookies.email,
+>>>>>>> Refactored based off of pull request #23
     };
     res.render("newListing", templateVars);
   });
@@ -25,10 +33,16 @@ module.exports = (makeRequest) => {
 
   router.get("/:id", (req, res) => {
     let templateVars = {
+<<<<<<< a42b781e9c82f6bc5e409421defae12c83e7424c
       cookie: req.cookies.email
     };
 
 
+=======
+      cookie: req.cookies.email,
+    };
+    // req dosent know serverhost (localhost) automatically, so its hard coded into this request
+>>>>>>> Refactored based off of pull request #23
     // TODO: add server host and port to .env file
     makeRequest(
       `http://localhost:8080/api/comments?listingID=${req.params.id}`
@@ -50,13 +64,15 @@ module.exports = (makeRequest) => {
 
 
   router.get("/:id/edit", (req, res) => {
+    // change singleListing to edit listing page, and fill in template vars (getting from listing id) to fill out the form
     let templateVars = {
-      cookie: req.cookies.email
+      cookie: req.cookies.email,
     };
     makeRequest(`http://localhost:8080/api/listings/${req.params.id}`)
       .then((listing) => {
-        templateVars["listing"] = JSON.parse(listing)
-        console.log(templateVars)
+        templateVars["listing"] = JSON.parse(listing);
+        console.log(templateVars);
+        // TODO: Render editListing
         res.render("editListing", templateVars);
       })
       .catch((error) => {
