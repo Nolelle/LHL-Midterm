@@ -14,8 +14,7 @@
         <div>
           <!-- TO DO: IMAGE URL NOT SHOWING FIX -->
           <% for(const listing of orderedListings) { %>
-            <div>
-
+            <div class="listing">
               <img src=<%=listing.image_url %>/>
               <%= listing.price %>
                 <%= listing.condition %>
@@ -24,6 +23,7 @@
             <% } %>
         </div>
       </main>
+      <script type="text/javascript" src="../public/scripts/onclick.js"></script>
 </body>
 
 </html>
