@@ -5,23 +5,21 @@ const router = express.Router();
  */
 // ***********************************QUERIES **************************************
 const queryGetListingById = function (db, id) {
-  let query = `SELECT * FROM listings where id = $1;`
+  let query = `SELECT * FROM listings where id = $1;`;
   return db.query(query, [id]).then((response) => {
-    return response.rows[0]
-  })
-}
+    return response.rows[0];
+  });
+};
 // returns array
 const queryGetAllListingsData = function (db) {
   let query = `SELECT * FROM listings`;
   return db.query(query).then((response) => {
-    return response.rows
+    return response.rows;
   });
-}
-
-
+};
 
 const updateListingById = (db, id, newFields) => {
-  console.log("Newfields OG : ",newFields)
+  console.log("Newfields OG : ", newFields);
   let query = `UPDATE listings SET
   description = ${newFields.description},
   image_url = ${newFields.image_url},
@@ -30,9 +28,9 @@ const updateListingById = (db, id, newFields) => {
   active = ${newFields.active}
   WHERE id = ${id}`;
   return db.query(query).then((response) => {
-    console.log("This is a update complete",response.rows)
-    return response.rows
-  })
+    console.log("This is a update complete", response.rows);
+    return response.rows;
+  });
 };
 
 // ***********************************QUERIES **************************************
@@ -52,7 +50,7 @@ module.exports = (db) => {
   router.get("/:id", (req, res) => {
     queryGetListingById(db, req.params.id)
       .then((listing) => {
-        res.json(listing)
+        res.json(listing);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
@@ -60,28 +58,18 @@ module.exports = (db) => {
   });
   //POST /listings/id/edit
   router.post("/:id/edit", (req, res) => {
-    console.log("req is :", req.body)
+    console.log("req is :", req.body);
     updateListingById(db, req.params.id, req.body.newFields)
-    .then((data) => {
-      console.log("update complete:", data)
-    })
-    .catch((err) => {
-      res.status(500).json({ error: err.message });
-    });
+      .then((data) => {
+        console.log("update complete:", data);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
   });
-
-
 
   return router;
 };
-
-
-
-
-
-
-
-
 
 // ** IGNORE** //
 // //GET /listings/:listingid/edit (edit the one listing -- needs to add user verification)

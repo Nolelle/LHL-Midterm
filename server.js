@@ -7,7 +7,8 @@ const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
-const makeRequest = require('request-promise-native');
+const makeRequest = require("request-promise-native");
+const cookieParser = require("cookie-parser");
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -19,7 +20,7 @@ db.connect();
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan("dev"));
-
+app.use(cookieParser());
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 
@@ -36,25 +37,30 @@ app.use(express.static("public"));
 
 // require routes
 const indexRoutes = require("./routes/templates/index");
-const createListingRoutes = require("./routes/templates/createListing");
 const listingRoutes = require("./routes/templates/listings");
-const favouriteRoutes = require("./routes/resources/favourites")
-const commentRoutes = require("./routes/resources/comments")
-const listingrequire = require("./routes/resources/listings")
+const createListingRoutes = require("./routes/templates/createListing");
+const loginRoutes = require("./routes/templates/login");
+const logoutRoutes = require("./routes/templates/logout");
+
+const userAPIRoutes = require("./routes/resources/users");
+const favouriteAPIRoutes = require("./routes/resources/favourites");
+const commentAPIRoutes = require("./routes/resources/comments");
+const listingAPIRoutes = require("./routes/resources/listings");
 
 // use Routes
 // resource routes
-app.use("/", indexRoutes(db));
-app.use("/api/favourites", favouriteRoutes(db))
-app.use("/api/comments", commentRoutes(db))
-app.use("/api/listings", listingrequire(db))
+app.use("/api/favourites", favouriteAPIRoutes(db));
+app.use("/api/comments", commentAPIRoutes(db));
+app.use("/api/listings", listingAPIRoutes(db));
+app.use("/api/users", userAPIRoutes(db));
+
 // template routes
+app.use("/", indexRoutes(makeRequest));
+app.use("/login", loginRoutes());
+app.use("/logout", logoutRoutes());
 app.use("/createListing", createListingRoutes());
 app.use("/listings", listingRoutes(makeRequest));
-
-
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
-
