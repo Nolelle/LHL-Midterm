@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
-/*
- * All routes for listings are defined here
- */
+
 // ***********************************QUERIES **************************************
 const queryGetListingById = function (db, id) {
   let query = `SELECT * FROM listings where id = $1;`;
@@ -10,7 +8,7 @@ const queryGetListingById = function (db, id) {
     return response.rows[0];
   });
 };
-// returns array
+
 const queryGetAllListingsData = function (db) {
   let query = `SELECT * FROM listings`;
   return db.query(query).then((response) => {
@@ -18,8 +16,14 @@ const queryGetAllListingsData = function (db) {
   });
 };
 
+const queryGetAllListingsDataOrderByDate = function (db) {
+  let query = `SELECT * FROM listings ORDER BY date_created`;
+  return db.query(query).then((response) => {
+    return response.rows;
+  });
+};
+
 const updateListingById = (db, id, newFields) => {
-  console.log("Newfields OG : ", newFields);
   let query = `UPDATE listings SET
   description = ${newFields.description},
   image_url = ${newFields.image_url},
@@ -35,10 +39,10 @@ const updateListingById = (db, id, newFields) => {
 
 // ***********************************QUERIES **************************************
 module.exports = (db) => {
-  // home
+  // GET api/listings/
   router.get("/", (req, res) => {
-    queryGetAllListingsData(db)
-      .then((data) => {
+    queryGetAllListingsDataOrderByDate(db)
+      .then((listings) => {
         res.json(listings);
       })
       .catch((err) => {
@@ -56,6 +60,7 @@ module.exports = (db) => {
         res.status(500).json({ error: err.message });
       });
   });
+
   //POST /listings/id/edit
   router.post("/:id/edit", (req, res) => {
     console.log("req is :", req.body);
@@ -70,13 +75,3 @@ module.exports = (db) => {
 
   return router;
 };
-
-// ** IGNORE** //
-// //GET /listings/:listingid/edit (edit the one listing -- needs to add user verification)
-// router.get("/:id/edit", (req, res) => {
-//   console.log("req.params", req.params);
-//   queryGetListingById(db, req.params.id)
-//   .then((listing) => {
-//     res.send(listing)
-//   });
-// });

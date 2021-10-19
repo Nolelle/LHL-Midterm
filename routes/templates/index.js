@@ -11,11 +11,19 @@ const router = express.Router();
 module.exports = (makeRequest) => {
   //GET /
   router.get("/", (req, res) => {
-    const templateVars = {
-      cookie: req.cookies.email,
-    };
-    console.log(templateVars);
-    res.render("index", templateVars);
+    makeRequest(`http://localhost:8080/api/listings`)
+      .then((data) => {
+        const orderedListings = JSON.parse(data);
+        const templateVars = {
+          orderedListings,
+          cookie: req.cookies.email,
+        };
+        console.log(templateVars.orderedListings[0].price);
+        res.render("index", templateVars);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   });
   return router;
 };
