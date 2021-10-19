@@ -1,17 +1,16 @@
 /*
- * All routes for Users are defined here
- * Since this file is loaded in server.js into api/users,
- *   these routes are mounted onto /users
- * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
+ * All template routes for localhost:8080:/createListing are defined here
  */
 
 const express = require("express");
 const router = express.Router();
 
 module.exports = () => {
-  //GET /createListing
   router.get("/", (req, res) => {
-    res.render("createListing");
+    let templateVars = {
+      cookie: req.cookies.email
+    };
+    res.render("newListing", templateVars);
   });
   return router;
 };
