@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Home Page</title>
+  <title>My Favourites</title>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,50 +14,32 @@
     <%- include('partials/leftSearchBar.ejs') %>
       <main>
         <div>
-          <h2>My Favourites</h2>
+          <h2>My Favourite Listings</h2>
           <div>
-            <form action="/favourites/nextpage" method="GET">
+            <form action="/nextpage" method="GET">
               <button type="submit">Next Page</button>
             </form>
           </div>
           <table>
             <tr>
-              <% for(const listing1 of firstTripletOrderedListings) { %>
+              <% for(const listing of orderedListings) { %>
 
                 <th>
                   <div class="listing">
-                    <img height="200px" src=<%=listing1.image_url %>></img><br>
+                    <img height="200px" src=<%=listing.image_url %>></img><br>
                     <div><b>
-                        <%= listing1.title %>
+                        <%= listing.title %>
 
                       </b>
-                      <%= listing1.name %>
-                        <p style="color:green"><b>$<%= listing1.price %></b></p>
+                      <%= listing.name %>
+                        <p style="color:green"><b>$<%= listing.price %></b></p>
                     </div>
                   </div>
-                  <form action="/listings/<%=listing1.id%>" method="GET">
+                  <form action="/listings/<%=listing.id%>" method="GET">
                     <button type="submit">View</button>
                   </form>
                 </th>
 
-                <% } %>
-            </tr>
-            <tr>
-              <% for(const listing2 of secondTripletOrderedListings) { %>
-
-                <th>
-                  <div class="listing">
-                    <img height="200px" src=<%=listing2.image_url %>></img><br>
-                    <div><b>
-                        <%= listing2.title %>
-                      </b>
-                      <p style="color:green"><b>$<%= listing2.price %></b></p>
-                    </div>
-                  </div>
-                  <form action="/listings/<%=listing2.id%>" method="GET">
-                    <button type="submit">View</button>
-                  </form>
-                </th>
                 <% } %>
             </tr>
           </table>

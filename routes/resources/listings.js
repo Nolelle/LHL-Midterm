@@ -100,8 +100,8 @@ module.exports = (db) => {
   });
 
   // GET /api/listing/:id render a page with just that posting, will show comments (if any) for that posting
-  router.get("/", (req, res) => {
-    queryGetListingById(db, req.params.id)
+  router.get("/:id", (req, res) => {
+    queryGetListingsById(db, req.params.id)
       .then((listing) => {
         res.json(listing);
       })

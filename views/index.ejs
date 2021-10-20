@@ -22,42 +22,24 @@
           </div>
           <table>
             <tr>
-              <% for(const listing1 of firstTripletOrderedListings) { %>
+              <% for(const listing of orderedListings) { %>
 
                 <th>
                   <div class="listing">
-                    <img height="200px" src=<%=listing1.image_url %>></img><br>
+                    <img height="200px" src=<%=listing.image_url %>></img><br>
                     <div><b>
-                        <%= listing1.title %>
+                        <%= listing.title %>
 
                       </b>
-                      <%= listing1.name %>
-                        <p style="color:green"><b>$<%= listing1.price %></b></p>
+                      <%= listing.name %>
+                        <p style="color:green"><b>$<%= listing.price %></b></p>
                     </div>
                   </div>
-                  <form action="/listings/<%=listing1.id%>" method="GET">
+                  <form action="/listings/<%=listing.id%>" method="GET">
                     <button type="submit">View</button>
                   </form>
                 </th>
 
-                <% } %>
-            </tr>
-            <tr>
-              <% for(const listing2 of secondTripletOrderedListings) { %>
-
-                <th>
-                  <div class="listing">
-                    <img height="200px" src=<%=listing2.image_url %>></img><br>
-                    <div><b>
-                        <%= listing2.title %>
-                      </b>
-                      <p style="color:green"><b>$<%= listing2.price %></b></p>
-                    </div>
-                  </div>
-                  <form action="/listings/<%=listing2.id%>" method="GET">
-                    <button type="submit">View</button>
-                  </form>
-                </th>
                 <% } %>
             </tr>
           </table>
