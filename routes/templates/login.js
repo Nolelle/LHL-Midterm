@@ -4,17 +4,20 @@
 const express = require("express");
 const router = express.Router();
 
-module.exports = () => {
-  //GET login
+
+
+module.exports = (makeRequest) => {
   router.get("/", (req, res) => {
-    res.render("login");
+    res.render("login")
   });
 
-  router.post("/", (req, res) => {
-    const inputEmail = req.body.email;
-    const inputPassword = req.body.password;
-    res.cookie("email", inputEmail);
-    res.redirect("/");
-  });
+  // router.post("/", (req, res) => {
+  //   makeRequest(`http://localhost:8080/api/login`)
+  //     .then((users) => {
+  //       res.cookie("id", object);
+  //       res.redirect("/");
+  //     })
+  // });
   return router;
 };
+

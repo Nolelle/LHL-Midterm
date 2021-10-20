@@ -28,6 +28,7 @@ module.exports = (makeRequest) => {
         const templateVars = {
           orderedListings,
           emailCookie: req.cookies.email,
+          userID: req.cookies.userID,
         };
         console.log(templateVars.orderedListings[0].price);
         res.render("index", templateVars);
@@ -40,6 +41,7 @@ module.exports = (makeRequest) => {
   router.get("/new", (req, res) => {
     let templateVars = {
       emailCookie: req.cookies.email,
+      userID: req.cookies.userID
     };
     res.render("newListing", templateVars);
   });
@@ -48,6 +50,7 @@ module.exports = (makeRequest) => {
     console.log("Got here:")
     let templateVars = {
       emailCookie: req.cookies.email,
+      userID: req.cookies.userID
     };
     // req dosent know serverhost (localhost) automatically, so its hard coded into this request
     // TODO: add server host and port to .env file
@@ -74,6 +77,7 @@ module.exports = (makeRequest) => {
     // change singleListing to edit listing page, and fill in template vars (getting from listing id) to fill out the form
     let templateVars = {
       emailCookie: req.cookies.email,
+      userID: req.cookies.userID
     };
     makeRequest(`http://localhost:8080/api/listings/${req.params.id}`)
       .then((listing) => {

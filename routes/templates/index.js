@@ -16,6 +16,7 @@ module.exports = (makeRequest) => {
         const templateVars = {
           orderedListings,
           emailCookie: req.cookies.email,
+          userID: req.cookies.userID
         };
         res.render("index", templateVars);
       })
@@ -27,6 +28,7 @@ module.exports = (makeRequest) => {
   router.get("/search", (req, res) => {
     let templateVars = {
       emailCookie: req.cookies.email,
+      userID: req.cookies.userID
     };
     makeRequest(
       `http://localhost:8080/api/listings/search?title=${req.query.title}&minimum_price=${req.query.minimum_price}&maximum_price=&${req.query.maximum_price}condition=${req.query.condition}`
@@ -47,6 +49,7 @@ module.exports = (makeRequest) => {
         const templateVars = {
           orderedListings,
           emailCookie: req.cookies.email,
+          userID: req.cookies.userID
         };
         res.render("index", templateVars);
       })
@@ -59,6 +62,7 @@ module.exports = (makeRequest) => {
   router.get("/previouspage", (req, res) => {
     let templateVars = {
       emailCookie: req.cookies.email,
+      userID: req.cookies.userID
     };
     makeRequest()
       .then((listings) => {
