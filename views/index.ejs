@@ -15,7 +15,11 @@
       <main>
         <div>
           <h2>Most Recent Listings</h2>
-
+          <div>
+            <form action="/nextpage" method="GET">
+              <button type="submit">Next Page</button>
+            </form>
+          </div>
           <table>
             <tr>
               <% for(const listing1 of firstTripletOrderedListings) { %>
@@ -58,10 +62,5 @@
         </div>
       </main>
 </body>
-<footer>
-  <form action="/nextpage" method="GET">
-    <button type="submit">Next Page</button>
-  </form>
-</footer>
 
 </html>

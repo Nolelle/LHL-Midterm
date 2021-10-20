@@ -13,6 +13,7 @@ module.exports = (makeRequest) => {
         const orderedListings = JSON.parse(data);
         const firstTripletOrderedListings = orderedListings.slice(0, 3);
         const secondTripletOrderedListings = orderedListings.slice(3, 6);
+        // TODO: IMPLEMENT PAGE STATUS BY setting a page cookie
         // res.cookie("PageOne", 1);
         const templateVars = {
           orderedListings,
