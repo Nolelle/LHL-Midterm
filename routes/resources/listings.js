@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 // ***********************************QUERIES **************************************
-const queryGetListingById = function (db, id) {
-  let query = `SELECT * FROM listings where id = $1;`;
+const queryGetListingsById = function (db, id) {
+  let query = `SELECT * FROM listings where id = $1 ORDER BY date_created DESC;`;
   return db.query(query, [id]).then((response) => {
     return response.rows[0];
   });
@@ -99,7 +99,7 @@ module.exports = (db) => {
   });
 
   // GET /api/listing/:id render a page with just that posting, will show comments (if any) for that posting
-  router.get("/:id", (req, res) => {
+  router.get("/", (req, res) => {
     queryGetListingById(db, req.params.id)
       .then((listing) => {
         res.json(listing);
