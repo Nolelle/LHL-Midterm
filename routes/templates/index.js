@@ -14,6 +14,7 @@ module.exports = (makeRequest) => {
         const firstTripletOrderedListings = orderedListings.slice(0, 3);
         const secondTripletOrderedListings = orderedListings.slice(3, 6);
         const templateVars = {
+          orderedListings,
           firstTripletOrderedListings,
           secondTripletOrderedListings,
           cookie: req.cookies.email,
@@ -32,6 +33,37 @@ module.exports = (makeRequest) => {
     makeRequest(
       `http://localhost:8080/api/listings/search?title=${req.query.title}&minimum_price=${req.query.minimum_price}&maximum_price=&${req.query.maximum_price}condition=${req.query.condition}`
     )
+      .then((listings) => {
+        templateVars["orderedListings"] = JSON.parse(listings);
+        res.render("index", templateVars);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
+  router.get("/nextpage", (req, res) => {
+    makeRequest(`http://localhost:8080/api/listings/page`)
+      .then((listings) => {
+        const orderedListings = JSON.parse(listings);
+        const firstTripletOrderedListings = orderedListings.slice(0, 3);
+        const secondTripletOrderedListings = orderedListings.slice(3, 6);
+        const templateVars = {
+          orderedListings,
+          firstTripletOrderedListings,
+          secondTripletOrderedListings,
+          cookie: req.cookies.email,
+        };
+        res.render("index", templateVars);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
+  router.get("/previouspage", (req, res) => {
+    let templateVars = {
+      cookie: req.cookies.email,
+    };
+    makeRequest()
       .then((listings) => {
         templateVars["orderedListings"] = JSON.parse(listings);
         res.render("index", templateVars);

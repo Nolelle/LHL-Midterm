@@ -45,8 +45,8 @@ const queryGetAllListingsDataOrderByDate = function (db) {
   });
 };
 
-const queryGetSixListingsDataOrderByDate = function (db) {
-  let query = `SELECT * FROM listings ORDER BY date_created DESC FETCH NEXT 6 ROWS ONLY`;
+const queryGetNextSixListingsDataOrderByDate = function (db) {
+  let query = `SELECT * FROM listings ORDER BY date_created DESC OFFSET 6 FETCH NEXT 6 ROWS ONLY`;
   return db.query(query).then((response) => {
     return response.rows;
   });
@@ -81,6 +81,15 @@ module.exports = (db) => {
 
   router.get("/search", (req, res) => {
     queryGetListingsBySearchParams(db, req.query)
+      .then((listings) => {
+        res.json(listings);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
+  router.get("/page", (req, res) => {
+    queryGetNextSixListingsDataOrderByDate(db, req.query)
       .then((listings) => {
         res.json(listings);
       })
