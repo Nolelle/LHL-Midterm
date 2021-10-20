@@ -14,14 +14,12 @@
     <%- include('partials/leftSearchBar.ejs') %>
       <main>
         <div>
-          <!-- TO DO: IMAGE URL NOT SHOWING FIX -->
-          
           <% for(const listing of orderedListings) { %>
             <div class="listing">
-              <img src=<%=listing.image_url %>>image</img>
-              <%= listing.price %>
-                <%= listing.condition %>
-                  <%= listing.description %>
+              <img height="200px"src=<%=listing.image_url %>></img><br>
+              <div><b><%= listing.title %></b>
+              <p style="color:green"><b>$<%= listing.price %></b></p>
+            </div>
             </div>
             <form action="/listings/<%=listing.id%>" method="GET">
               <button type="submit">View</button>

@@ -1,67 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>Single Listing</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+  </head>
 
-<head>
-  <title>Home Page</title>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-  <script type="text/javascript" src="/scripts/app.js"></script>
-</head>
+  <body>
+    <%- include('partials/nav-bar') %> <%- include('partials/leftSearchBar') %>
+    <main style="margin: 1em">
+      <!-- Image -->
+      <img src="<%= listing.image_url%>" alt="" />
 
-<body>
-  <%- include('partials/nav-bar') %>
-    <%- include('partials/leftSearchBar') %>
-      <main style="margin: 1em;">
-        <!-- Image -->
-        <img src="<%= listing.image_url%>" alt="">
-
-        <!-- this div contains the big box of information relative to the post -->
-        <div class="description-box" style="background-color: aquamarine;">
-          <h3> <%= listing.title %> </h3>
-          <p>
-            <%= listing.description %>
-          </p>
-          <button style="background-color: orange;">Edit</button>
-          <button style="background-color: #f44336;">Delete</button>
-          <!-- div here for moving price/condition (paired together) -->
-          <div>
-            <p>
-              <%= listing.price %>
-            </p>
-            <p>
-              <%= listing.condition %>
-            </p>
-          </div>
+      <!-- this div contains the big box of information relative to the post -->
+      <div class="description-box" style="background-color: aquamarine">
+        <!-- button divs -->
+        <div>
+          <h1>Mark as sold?</h1>
+          <button type="submit" class="btn btn-primary">Mark as sold</button>
+          <button type="submit" class="btn btn-primary">Favourite</button>
+          <button type="submit" class="btn btn-primary">Edit</button>
+          <button type="submit" class="btn btn-primary">Delete</button>
         </div>
-        <!-- Div here for comments -->
-        <h1><b>Comments</b></h1>
-        <% if (comments) { for (let comment of comments) { %>
+         <!-- button divs -->
+        <h3><%= listing.title %></h3>
+        <p><%= listing.description %></p>
 
-          <div style="background-color: lightgray;">
-            <!-- userID stays in a div, Text in another -->
-            <div>
+        <!-- div here for moving price/condition (paired together) -->
+        <div>
+          <p><%= listing.price %></p>
+          <p><%= listing.condition %></p>
+        </div>
+      </div>
+      <!-- Div here for comments -->
+      <h1><b>Comments</b></h1>
+      <% if (comments) { for (let comment of comments) { %>
 
-              <p>
-                <%= comment["msg_text"] %>
-              </p>
-            </div>
+      <div style="background-color: lightgray">
+        <!-- userID stays in a div, Text in another -->
+        <div>
+          <p><%= comment["msg_text"] %></p>
+        </div>
+      </div>
+      <% } %> <% } %>
+      <div class="comment-box-container" style="background-color: lightpink">
+        <!-- <section class="new-tweet"> Maybe change all colored area into sections? -->
+        <form method="POST" action="/comments">
+          <div class="text-input-container">
+            <textarea placeholder="Negotiate Here"></textarea>
           </div>
-          <% } %>
-          <% } %>
-            <div class="comment-box-container" style="background-color: lightpink;">
-              <!-- <section class="new-tweet"> Maybe change all colored area into sections? -->
-              <form method="POST" action="/comments">
-                <div class="text-input-container">
-                  <textarea placeholder="Negotiate Here"></textarea>
-                </div>
-                <div class="submit-container">
-                  <button type="submit">Comment</button>
-                </div>
-              </form>
-            </div>
-      </main>
-</body>
-
+          <div class="submit-container">
+            <button type="submit">Comment</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </body>
 </html>
