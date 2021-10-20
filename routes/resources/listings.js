@@ -9,35 +9,44 @@ const queryGetListingById = function (db, id) {
   });
 };
 
-
 const queryGetListingsBySearchParams = function (db, searchParams) {
-  return queryGetAllListingsDataOrderByDate(db)
-    .then((listings) => {
-      let result = JSON.parse(JSON.stringify(listings))
-      // title
-      if (searchParams.title) {
-        result = result.filter(listing => listing.title.search(searchParams.title) !== -1)
-      }
-      // minimum
-      if (parseFloat(searchParams.minimum_price)) {
-        let floatMin = parseFloat(searchParams.minimum_price)
-        result = result.filter(listing => listing.price >= floatMin)
-      }
-      // maximum
-      if (parseFloat(searchParams.maximum_price)) {
-        let floatMax = parseFloat(searchParams.maximum_price)
-        result = result.filter(listing => listing.price <= floatMax)
-      }
-      // condition
-      if (searchParams.condition) {
-        result = result.filter(listing => listing.condition.search(searchParams.condition) !== -1)
-      }
-      return result
-    })
+  return queryGetAllListingsDataOrderByDate(db).then((listings) => {
+    let result = JSON.parse(JSON.stringify(listings));
+    // title
+    if (searchParams.title) {
+      result = result.filter(
+        (listing) => listing.title.search(searchParams.title) !== -1
+      );
+    }
+    // minimum
+    if (parseFloat(searchParams.minimum_price)) {
+      let floatMin = parseFloat(searchParams.minimum_price);
+      result = result.filter((listing) => listing.price >= floatMin);
+    }
+    // maximum
+    if (parseFloat(searchParams.maximum_price)) {
+      let floatMax = parseFloat(searchParams.maximum_price);
+      result = result.filter((listing) => listing.price <= floatMax);
+    }
+    // condition
+    if (searchParams.condition) {
+      result = result.filter(
+        (listing) => listing.condition.search(searchParams.condition) !== -1
+      );
+    }
+    return result;
+  });
 };
 
 const queryGetAllListingsDataOrderByDate = function (db) {
-  let query = `SELECT * FROM listings ORDER BY date_created`;
+  let query = `SELECT * FROM listings ORDER BY date_created DESC;`;
+  return db.query(query).then((response) => {
+    return response.rows;
+  });
+};
+
+const queryGetSixListingsDataOrderByDate = function (db) {
+  let query = `SELECT * FROM listings ORDER BY date_created DESC FETCH NEXT 6 ROWS ONLY`;
   return db.query(query).then((response) => {
     return response.rows;
   });

@@ -11,11 +11,13 @@ module.exports = (makeRequest) => {
     makeRequest(`http://localhost:8080/api/listings`)
       .then((data) => {
         const orderedListings = JSON.parse(data);
+        const firstTripletOrderedListings = orderedListings.slice(0, 3);
+        const secondTripletOrderedListings = orderedListings.slice(3, 6);
         const templateVars = {
-          orderedListings,
+          firstTripletOrderedListings,
+          secondTripletOrderedListings,
           cookie: req.cookies.email,
         };
-        console.log(templateVars.orderedListings[0].price);
         res.render("index", templateVars);
       })
       .catch((error) => {
@@ -27,10 +29,12 @@ module.exports = (makeRequest) => {
     let templateVars = {
       cookie: req.cookies.email,
     };
-    makeRequest(`http://localhost:8080/api/listings/search?title=${req.query.title}&minimum_price=${req.query.minimum_price}&maximum_price=&${req.query.maximum_price}condition=${req.query.condition}`)
+    makeRequest(
+      `http://localhost:8080/api/listings/search?title=${req.query.title}&minimum_price=${req.query.minimum_price}&maximum_price=&${req.query.maximum_price}condition=${req.query.condition}`
+    )
       .then((listings) => {
         templateVars["orderedListings"] = JSON.parse(listings);
-        res.render("index", templateVars)
+        res.render("index", templateVars);
       })
       .catch((error) => {
         console.log(error);
