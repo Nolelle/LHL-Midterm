@@ -22,5 +22,20 @@ module.exports = (makeRequest) => {
         console.log(error);
       });
   });
+
+  router.get("/search", (req, res) => {
+    let templateVars = {
+      cookie: req.cookies.email,
+    };
+    makeRequest(`http://localhost:8080/api/listings/search?title=${req.query.title}&minimum_price=${req.query.minimum_price}&maximum_price=&${req.query.maximum_price}condition=${req.query.condition}`)
+      .then((listings) => {
+        templateVars["orderedListings"] = JSON.parse(listings);
+        res.render("index", templateVars)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
+
   return router;
 };

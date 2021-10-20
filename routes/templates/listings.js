@@ -8,10 +8,33 @@ const router = express.Router();
 module.exports = (makeRequest) => {
   //We may use this route for our search button
   router.get("/", (req, res) => {
-    let templateVars = {
-      cookie: req.cookies.email,
-    };
-    res.render("index", templateVars);
+    makeRequest(`http://localhost:8080/api/listings`)
+      .then((data) => {
+        const orderedListings = JSON.parse(data);
+        orderedListings.push({
+          "id": 3,
+          "user_id": 1,
+          "favourite_id": 1,
+          "image_url": "https://ibb.co/VCx1ZWF",
+          "condition": "good",
+          "price": 500,
+          "description": "description",
+          "date_created": "2021-10-16T00:00:00.000Z",
+          "date_modified": "2021-10-16T00:00:00.000Z",
+          "sold": false,
+          "active": true,
+          "comment_id": 1
+        })
+        const templateVars = {
+          orderedListings,
+          cookie: req.cookies.email,
+        };
+        console.log(templateVars.orderedListings[0].price);
+        res.render("index", templateVars);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   });
 
   router.get("/new", (req, res) => {
@@ -20,6 +43,8 @@ module.exports = (makeRequest) => {
     };
     res.render("newListing", templateVars);
   });
+
+
 
   router.get("/:id", (req, res) => {
     let templateVars = {
@@ -60,5 +85,8 @@ module.exports = (makeRequest) => {
         console.log(error);
       });
   });
+
+
+
   return router;
 };
