@@ -10,32 +10,33 @@ const queryGetListingsById = function (db, id) {
 };
 
 const queryGetListingsBySearchParams = function (db, searchParams) {
-  return queryGetAllListingsDataOrderByDate(db).then((listings) => {
-    let result = JSON.parse(JSON.stringify(listings));
-    // title
-    if (searchParams.title) {
-      result = result.filter(
-        (listing) => listing.title.search(searchParams.title) !== -1
-      );
-    }
-    // minimum
-    if (parseFloat(searchParams.minimum_price)) {
-      let floatMin = parseFloat(searchParams.minimum_price);
-      result = result.filter((listing) => listing.price >= floatMin);
-    }
-    // maximum
-    if (parseFloat(searchParams.maximum_price)) {
-      let floatMax = parseFloat(searchParams.maximum_price);
-      result = result.filter((listing) => listing.price <= floatMax);
-    }
-    // condition
-    if (searchParams.condition) {
-      result = result.filter(
-        (listing) => listing.condition.search(searchParams.condition) !== -1
-      );
-    }
-    return result;
-  });
+  return queryGetAllListingsDataOrderByDate(db)
+    .then((listings) => {
+      let result = JSON.parse(JSON.stringify(listings))
+      // title
+      if (searchParams.title) {
+        result = result.filter(listing => listing.title.toLowerCase().search(searchParams.title.toLowerCase()) !== -1)
+      }
+      // minimum
+      if (parseFloat(searchParams.minimum_price)) {
+
+        let floatMin = parseFloat(searchParams.minimum_price)
+        result = result.filter(listing => listing.price >= floatMin)
+        console.log("floatMin:", result)
+      }
+      // maximum
+      if (parseFloat(searchParams.maximum_price)) {
+        let floatMax = parseFloat(searchParams.maximum_price)
+        result = result.filter(listing => listing.price <= floatMax)
+        console.log("floatMax:", result)
+      }
+      // condition
+      if (searchParams.condition) {
+        result = result.filter(listing => listing.condition.toLowerCase().search(searchParams.condition.toLowerCase()) !== -1)
+
+      }
+      return result
+    })
 };
 
 const queryGetAllListingsDataOrderByDate = function (db) {
