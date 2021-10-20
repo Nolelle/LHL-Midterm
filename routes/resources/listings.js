@@ -2,13 +2,12 @@ const express = require("express");
 const router = express.Router();
 
 // ***********************************QUERIES **************************************
-const queryGetListingById = function (db, id) {
-  let query = `SELECT * FROM listings where id = $1;`;
+const queryGetListingsById = function (db, id) {
+  let query = `SELECT * FROM listings where id = $1 ORDER BY date_created DESC;`;
   return db.query(query, [id]).then((response) => {
     return response.rows[0];
   });
 };
-
 
 const queryGetListingsBySearchParams = function (db, searchParams) {
   return queryGetAllListingsDataOrderByDate(db)
@@ -41,11 +40,18 @@ const queryGetListingsBySearchParams = function (db, searchParams) {
 };
 
 const queryGetAllListingsDataOrderByDate = function (db) {
-  let query = `SELECT * FROM listings ORDER BY date_created`;
+  let query = `SELECT * FROM listings ORDER BY date_created DESC;`;
   return db.query(query).then((response) => {
     return response.rows;
   });
 };
+
+// const queryGetNextSixListingsDataOrderByDate = function (db) {
+//   let query = `SELECT * FROM listings ORDER BY date_created DESC OFFSET 6 FETCH NEXT 6 ROWS ONLY`;
+//   return db.query(query).then((response) => {
+//     return response.rows;
+//   });
+// };
 
 const updateListingById = (db, id, newFields) => {
   let query = `UPDATE listings SET
@@ -83,9 +89,18 @@ module.exports = (db) => {
         res.status(500).json({ error: err.message });
       });
   });
+  router.get("/page", (req, res) => {
+    queryGetAllListingsDataOrderByDate(db, req.query)
+      .then((listings) => {
+        res.json(listings);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
 
   // GET /api/listing/:id render a page with just that posting, will show comments (if any) for that posting
-  router.get("/:id", (req, res) => {
+  router.get("/", (req, res) => {
     queryGetListingById(db, req.params.id)
       .then((listing) => {
         res.json(listing);

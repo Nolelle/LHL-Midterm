@@ -4,9 +4,9 @@
 <header>
   <nav>
     <div>
-      Buy/Sell Website
+      <a href="/" method="GET">Buy/Sell Website</a>
     </div>
-    <% if(cookie){ %>
+    <% if(emailCookie){ %>
       <form action="/logout" method="POST">
         <button type="submit">Logout</button>
       </form>

@@ -8,7 +8,7 @@ const router = express.Router();
 module.exports = () => {
   router.get("/", (req, res) => {
     let templateVars = {
-      cookie: req.cookies.email,
+      emailCookie: req.cookies.email,
     };
     res.render("newListing", templateVars);
   });

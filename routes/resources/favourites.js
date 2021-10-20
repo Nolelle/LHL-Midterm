@@ -5,16 +5,20 @@
 const express = require("express");
 const router = express.Router();
 
-const queryGetFavsByUserID = function (db, userID) {
-  let query = `SELECT * FROM favourites WHERE user_id = $1`;
-  return db.query(query, [userID]).then((response) => {
-    return response.fields;
+const queryGetFavListingsByUserID = function (db, userID) {
+  let query = `SELECT favourites.id AS favourites_id, listing_id, listings.*
+  FROM favourites
+  JOIN listings ON favourites.listing_id = listings.id
+  WHERE listings.user_id = $1`;
+  return db.query(query, [1]).then((response) => {
+    return response.rows;
   });
 };
 
 module.exports = (db) => {
+  //GET /api/favourites
   router.get("/", (req, res) => {
-    queryGetFavsByUserID(db, req.query.userID)
+    queryGetFavListingsByUserID(db, req.query.userID)
       .then((favouriteRows) => {
         res.json(favouriteRows);
       })

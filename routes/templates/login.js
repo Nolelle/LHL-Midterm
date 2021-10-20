@@ -13,8 +13,6 @@ module.exports = () => {
   router.post("/", (req, res) => {
     const inputEmail = req.body.email;
     const inputPassword = req.body.password;
-    const inputID = req.body.id;
-    res.cookie("id", inputID);
     res.cookie("email", inputEmail);
     res.redirect("/");
   });
