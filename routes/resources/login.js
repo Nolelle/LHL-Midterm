@@ -11,12 +11,6 @@ const queryCheckInputEmailForUserID = function (db, email) {
     return response.rows[0]
   });
 };
-const queryUsers = (db) => {
-  let query = `SELECT * FROM users;`;
-  return db.query(query).then((response) => {
-    return response.rows;
-  });
-};
 
 
 module.exports = (db) => {
