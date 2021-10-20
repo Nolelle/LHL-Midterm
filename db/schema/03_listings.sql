@@ -10,7 +10,7 @@ CREATE TABLE listings (
   title VARCHAR(255),
   image_url VARCHAR(255),
   condition condition_type,
-  price INTEGER,
+  price decimal(12,2),
   description VARCHAR(500),
   categories categories_type,
   date_created DATE,
