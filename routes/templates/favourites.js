@@ -12,7 +12,7 @@ module.exports = (makeRequest) => {
         const orderedListings = JSON.parse(data);
         const templateVars = {
           orderedListings,
-          cookie: req.cookies.email,
+          emailCookie: req.cookies.email,
         };
         console.log(templateVars.orderedListings[0].price);
         res.render("index", templateVars);

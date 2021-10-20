@@ -13,11 +13,12 @@ module.exports = (makeRequest) => {
         const orderedListings = JSON.parse(data);
         const firstTripletOrderedListings = orderedListings.slice(0, 3);
         const secondTripletOrderedListings = orderedListings.slice(3, 6);
+        // res.cookie("PageOne", 1);
         const templateVars = {
           orderedListings,
           firstTripletOrderedListings,
           secondTripletOrderedListings,
-          cookie: req.cookies.email,
+          emailCookie: req.cookies.email,
         };
         res.render("index", templateVars);
       })
@@ -28,7 +29,7 @@ module.exports = (makeRequest) => {
 
   router.get("/search", (req, res) => {
     let templateVars = {
-      cookie: req.cookies.email,
+      emailCookie: req.cookies.email,
     };
     makeRequest(
       `http://localhost:8080/api/listings/search?title=${req.query.title}&minimum_price=${req.query.minimum_price}&maximum_price=&${req.query.maximum_price}condition=${req.query.condition}`
@@ -44,14 +45,19 @@ module.exports = (makeRequest) => {
   router.get("/nextpage", (req, res) => {
     makeRequest(`http://localhost:8080/api/listings/page`)
       .then((listings) => {
+        let start = 6;
+        let end = 9;
         const orderedListings = JSON.parse(listings);
-        const firstTripletOrderedListings = orderedListings.slice(0, 3);
-        const secondTripletOrderedListings = orderedListings.slice(3, 6);
+        const firstTripletOrderedListings = orderedListings.slice(start, end);
+        const secondTripletOrderedListings = orderedListings.slice(
+          end,
+          end + 3
+        );
         const templateVars = {
           orderedListings,
           firstTripletOrderedListings,
           secondTripletOrderedListings,
-          cookie: req.cookies.email,
+          emailCookie: req.cookies.email,
         };
         res.render("index", templateVars);
       })
@@ -59,9 +65,11 @@ module.exports = (makeRequest) => {
         console.log(error);
       });
   });
+
+  //TODO!!!!
   router.get("/previouspage", (req, res) => {
     let templateVars = {
-      cookie: req.cookies.email,
+      emailCookie: req.cookies.email,
     };
     makeRequest()
       .then((listings) => {

@@ -45,12 +45,12 @@ const queryGetAllListingsDataOrderByDate = function (db) {
   });
 };
 
-const queryGetNextSixListingsDataOrderByDate = function (db) {
-  let query = `SELECT * FROM listings ORDER BY date_created DESC OFFSET 6 FETCH NEXT 6 ROWS ONLY`;
-  return db.query(query).then((response) => {
-    return response.rows;
-  });
-};
+// const queryGetNextSixListingsDataOrderByDate = function (db) {
+//   let query = `SELECT * FROM listings ORDER BY date_created DESC OFFSET 6 FETCH NEXT 6 ROWS ONLY`;
+//   return db.query(query).then((response) => {
+//     return response.rows;
+//   });
+// };
 
 const updateListingById = (db, id, newFields) => {
   let query = `UPDATE listings SET
@@ -89,7 +89,7 @@ module.exports = (db) => {
       });
   });
   router.get("/page", (req, res) => {
-    queryGetNextSixListingsDataOrderByDate(db, req.query)
+    queryGetAllListingsDataOrderByDate(db, req.query)
       .then((listings) => {
         res.json(listings);
       })
