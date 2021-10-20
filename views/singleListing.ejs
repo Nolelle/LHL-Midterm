@@ -15,11 +15,11 @@
     <%- include('partials/leftSearchBar') %>
       <main style="margin: 1em;">
         <!-- Image -->
-        <img src="https://m.media-amazon.com/images/I/71bIrPF9ZOL._AC_SL1500_.jpg" style="height:100px;"></img>
+        <img src="<%= listing.image_url%>" alt="">
 
         <!-- this div contains the big box of information relative to the post -->
         <div class="description-box" style="background-color: aquamarine;">
-          <h3> TODO: ADD TITLE </h3>
+          <h3> <%= listing.title %> </h3>
           <p>
             <%= listing.description %>
           </p>

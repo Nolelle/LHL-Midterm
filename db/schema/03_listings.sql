@@ -1,6 +1,7 @@
 -- CREATE the Listings table
 CREATE TYPE categories_type AS ENUM ('Sports Goods','Vehicles','Electronics','Apparel','FREE','Toys & Games', 'Music & Instruments',
 'Home and Garden','Family','Office');
+CREATE TYPE condition_type AS ENUM ('N/A', 'Poor', 'Good/Fair', 'Excellent', 'Near Mint');
 DROP TABLE IF EXISTS listings CASCADE;
 
 CREATE TABLE listings (
@@ -8,7 +9,7 @@ CREATE TABLE listings (
   user_id INTEGER REFERENCES users(id),
   title VARCHAR(255),
   image_url VARCHAR(255),
-  condition VARCHAR(255),
+  condition condition_type,
   price INTEGER,
   description VARCHAR(500),
   categories categories_type,
