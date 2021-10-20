@@ -37,18 +37,19 @@
       </div>
       <!-- Div here for comments -->
       <h1><b>Comments</b></h1>
-      <% if (comments) { for (let comment of comments) { %>
-
-      <div style="background-color: lightgray">
-        <!-- userID stays in a div, Text in another -->
-        <div>
-          <p><%= comment["msg_text"] %></p>
-        </div>
-      </div>
-      <% } %> <% } %>
+      <% if (comments) { %>
+        <% for (let comment of comments) { %>
+          <div style="background-color: lightgray">
+            <!-- userID stays in a div, Text in another -->
+            <div>
+              <p><%= comment["msg_text"] %></p>
+            </div>
+          </div>
+        <% } %>
+      <% } %>
       <div class="comment-box-container" style="background-color: lightpink">
         <!-- <section class="new-tweet"> Maybe change all colored area into sections? -->
-        <form method="POST" action="/comments">
+        <form method="POST" action="/api/comments?msg_text=<%%>">
           <div class="text-input-container">
             <textarea placeholder="Negotiate Here"></textarea>
           </div>
