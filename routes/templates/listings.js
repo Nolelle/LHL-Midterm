@@ -45,6 +45,7 @@ module.exports = (makeRequest) => {
   });
 
   router.get("/:id", (req, res) => {
+    console.log("Got here:")
     let templateVars = {
       emailCookie: req.cookies.email,
     };
@@ -58,7 +59,7 @@ module.exports = (makeRequest) => {
             templateVars["listing"] = JSON.parse(listing);
             res.render("singleListing", templateVars);
           })
-          // TODO REVIEW: CAN I DELETE THIS? 
+          // TODO REVIEW: CAN I DELETE THIS?
           .catch((error) => {
             console.log(error);
           });
