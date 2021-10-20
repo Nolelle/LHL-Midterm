@@ -55,18 +55,20 @@ module.exports = (makeRequest) => {
     makeRequest(`http://localhost:8080/api/comments?listingID=${req.params.id}`)
       .then((comments) => {
         templateVars["comments"] = JSON.parse(comments);
+        makeRequest(`http://localhost:8080/api/listings/${req.params.id}`)
+          .then((listing) => {
+            templateVars["listing"] = JSON.parse(listing);
+            res.render("singleListing", templateVars);
+          })
+          // TODO REVIEW: CAN I DELETE THIS? 
+          .catch((error) => {
+            console.log(error);
+          });
       })
       .catch((error) => {
         console.log(error);
       });
-    makeRequest(`http://localhost:8080/api/listings/${req.params.id}`)
-      .then((listing) => {
-        templateVars["listing"] = JSON.parse(listing);
-        res.render("singleListing", templateVars);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+
   });
 
   router.get("/:id/edit", (req, res) => {
