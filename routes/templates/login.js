@@ -10,14 +10,6 @@ module.exports = (makeRequest) => {
   router.get("/", (req, res) => {
     res.render("login")
   });
-
-  // router.post("/", (req, res) => {
-  //   makeRequest(`http://localhost:8080/api/login`)
-  //     .then((users) => {
-  //       res.cookie("id", object);
-  //       res.redirect("/");
-  //     })
-  // });
   return router;
 };
 
