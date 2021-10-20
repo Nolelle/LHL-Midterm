@@ -9,11 +9,31 @@ const queryGetListingById = function (db, id) {
   });
 };
 
-const queryGetAllListingsData = function (db) {
-  let query = `SELECT * FROM listings`;
-  return db.query(query).then((response) => {
-    return response.rows;
-  });
+
+const queryGetListingsBySearchParams = function (db, searchParams) {
+  return queryGetAllListingsDataOrderByDate(db)
+    .then((listings) => {
+      let result = JSON.parse(JSON.stringify(listings))
+      // title
+      if (searchParams.title) {
+        result = result.filter(listing => listing.title.search(searchParams.title) !== -1)
+      }
+      // minimum
+      if (parseFloat(searchParams.minimum_price)) {
+        let floatMin = parseFloat(searchParams.minimum_price)
+        result = result.filter(listing => listing.price >= floatMin)
+      }
+      // maximum
+      if (parseFloat(searchParams.maximum_price)) {
+        let floatMax = parseFloat(searchParams.maximum_price)
+        result = result.filter(listing => listing.price <= floatMax)
+      }
+      // condition
+      if (searchParams.condition) {
+        result = result.filter(listing => listing.condition.search(searchParams.condition) !== -1)
+      }
+      return result
+    })
 };
 
 const queryGetAllListingsDataOrderByDate = function (db) {
@@ -42,6 +62,16 @@ module.exports = (db) => {
   // GET api/listings/
   router.get("/", (req, res) => {
     queryGetAllListingsDataOrderByDate(db)
+      .then((listings) => {
+        res.json(listings);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
+
+  router.get("/search", (req, res) => {
+    queryGetListingsBySearchParams(db, req.query)
       .then((listings) => {
         res.json(listings);
       })
