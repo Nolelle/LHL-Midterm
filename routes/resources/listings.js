@@ -44,7 +44,7 @@ const addNewListing = (db, body, userIDcookie) => {
     body.price,
     body.description,
     body.categories,
-    Date.now(),
+    Date.now()/1000,
     false,
     true])
     .then((response) => {
