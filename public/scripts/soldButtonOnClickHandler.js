@@ -1,11 +1,4 @@
-// helper function for comments
-const createCommentElement = function (comment) {
-  return `<div style="background-color: lightgray">
-    <p>
-      ${comment.msg_text}
-    </p>
-</div>`
-}
+
 // document ready
 $(() => {
   const url = window.location.pathname;
