@@ -12,23 +12,23 @@
   <body>
     <%- include('partials/nav-bar') %>
     <main style="margin: 1em">
-      <form action="/new-post" method="POST">
+      <form action="/api/listings/new" method="POST">
         <!-- Title -->
         <div>
           <label for="title">Title</label>
-          <input type="text" placeholder="What are you selling?" />
+          <input  name="title" type="text" placeholder="What are you selling?" />
         </div>
 
         <!-- Price -->
         <div>
           <label for="price">Price</label>
-          <input type="number" placeholder="$50" />
+          <input name="price" type="number" placeholder="$50" />
         </div>
 
         <!-- Description -->
         <div>
           <label for="description">Description</label>
-          <input type="text" placeholder="Write a bit about your item" />
+          <input name="description" type="text" placeholder="Write a bit about your item" />
         </div>
 
         <!-- Condition -->
@@ -46,13 +46,13 @@
         <!-- image -->
         <div>
           <label for="image">Image</label>
-          <input type="text" placeholder="Post an image URL" />
+          <input name="image_url" type="text" placeholder="Post an image URL" />
         </div>
 
         <!-- category -->
         <div>
           <label for="category">Category</label>
-          <select name="category">
+          <select name="categories">
             <option>FREE</option>
             <option>Vehicles</option>
             <option>Electronics</option>
