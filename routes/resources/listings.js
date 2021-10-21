@@ -124,7 +124,6 @@ module.exports = (db) => {
 
   //POST /listings/id/edit
   router.post("/:id/edit", (req, res) => {
-    console.log("req is :", req.body);
     updateListingById(db, req.params.id, req.body)
       .then(() => {
         res.redirect(`/listings/${req.params.id}`)
@@ -134,9 +133,8 @@ module.exports = (db) => {
       });
   });
   router.post("/new", (req, res) => {
-    console.log("req is :", req.body);
     addNewListing(db, req.body, req.cookies.userID)
-      .then((data) => {
+      .then(() => {
         res.redirect("/")
       })
       .catch((err) => {
