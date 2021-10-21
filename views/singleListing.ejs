@@ -82,7 +82,8 @@
         <% if (comments) { %> <% for (let comment of comments) { %>
         <div style="background-color: lightgray">
           <!-- userID stays in a div, Text in another -->
-          <p><%= comment["msg_text"] %></p>
+
+          <p><%= comment["msg_text"] %> <%= comment.user_id %></p>
         </div>
         <% } %> <% } %>
       </div>
