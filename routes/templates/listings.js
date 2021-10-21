@@ -74,6 +74,7 @@ module.exports = (makeRequest) => {
     // change singleListing to edit listing page, and fill in template vars (getting from listing id) to fill out the form
     let templateVars = {
       emailCookie: req.cookies.email,
+      listingID: req.params.id
     };
     makeRequest(`http://localhost:8080/api/listings/${req.params.id}`)
       .then((listing) => {

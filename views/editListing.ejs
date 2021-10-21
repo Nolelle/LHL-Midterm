@@ -12,7 +12,7 @@
   <body>
     <%- include('partials/nav-bar') %>
     <main style="margin: 1em">
-      <form action="/new-post" method="POST">
+      <form action="/api/listings/<%=listingID%>/edit" method="post">
         <div>
         </div>
 
@@ -20,19 +20,19 @@
         <!-- Title -->
         <div>
           <label for="title">Title</label>
-          <input placeholder=<%= listing.title %>></input><br>
+          <input name="title" placeholder=<%= listing.title %>></input><br>
         </div>
 
         <!-- Price -->
         <div>
           <label for="price">Price</label>
-          <input placeholder=<%= listing.price %>></input><br>
+          <input name="price" placeholder=<%= listing.price %>></input><br>
         </div>
 
         <!-- Description -->
         <div>
           <label for="description">Description</label>
-          <input placeholder=<%= listing.description %>></input><br>
+          <input name="description" placeholder=<%= listing.description %>></input><br>
         </div>
 
         <!-- Condition -->
@@ -50,10 +50,11 @@
         <!-- image -->
         <div>
           <label for="image">Image</label>
-          <input type="text" placeholder="Post an image URL" />
+          <input name="image" type="text" placeholder="Post an image URL" />
         </div>
 
         <!-- category -->
+        <!-- check out the select option docs (has value associated with option) -->
         <div>
           <label for="category">Category</label>
           <select name="category">

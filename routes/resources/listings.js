@@ -53,20 +53,21 @@ const queryGetAllListingsDataOrderByDate = function (db) {
 //   });
 // };
 
-const updateListingById = (db, id, newFields) => {
+const updateListingById = (db, id, body) => {
   let query = `UPDATE listings SET
-  description = ${newFields.description},
-  image_url = ${newFields.image_url},
-  price = ${newFields.price},
-  sold = ${newFields.sold},
-  active = ${newFields.active}
+  description = ${body.description},
+  image_url = ${body.image_url},
+  price = ${body.price},
+  sold = ${body.sold},
+  active = ${body.active}
   WHERE id = ${id}`;
+  console.log("myQuery:",query)
   return db.query(query).then((response) => {
     console.log("This is a update complete", response.rows);
     return response.rows;
   });
 };
-
+// UPDATE listings SET description = 'newDescriptpion', image_url = 'https://avatars.githubusercontent.com/u/38992135?v=4' ,price = 250, sold = FALSE, active = FALSE WHERE id = 7;
 // ***********************************QUERIES **************************************
 module.exports = (db) => {
   // GET api/listings/
@@ -113,7 +114,7 @@ module.exports = (db) => {
   //POST /listings/id/edit
   router.post("/:id/edit", (req, res) => {
     console.log("req is :", req.body);
-    updateListingById(db, req.params.id, req.body.newFields)
+    updateListingById(db, req.params.id, req.body)
       .then((data) => {
         console.log("update complete:", data);
       })
