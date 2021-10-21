@@ -47,14 +47,14 @@ const userAPIRoutes = require("./routes/resources/users");
 const favouriteAPIRoutes = require("./routes/resources/favourites");
 const commentAPIRoutes = require("./routes/resources/comments");
 const listingAPIRoutes = require("./routes/resources/listings");
-const loginAPIRoutes = require("./routes/resources/login");
+
 // use Routes
 // resource routes
 app.use("/api/favourites", favouriteAPIRoutes(db));
 app.use("/api/comments", commentAPIRoutes(db));
 app.use("/api/listings", listingAPIRoutes(db));
 app.use("/api/users", userAPIRoutes(db));
-app.use("/api/login", loginAPIRoutes(db));
+
 
 // template routes
 app.use("/", indexRoutes(makeRequest));
