@@ -46,15 +46,8 @@ const queryGetAllListingsDataOrderByDate = function (db) {
   });
 };
 
-// const queryGetNextSixListingsDataOrderByDate = function (db) {
-//   let query = `SELECT * FROM listings ORDER BY date_created DESC OFFSET 6 FETCH NEXT 6 ROWS ONLY`;
-//   return db.query(query).then((response) => {
-//     return response.rows;
-//   });
-// };
-
 const updateListingById = (db, id, body) => {
-  console.log("body",body)
+  console.log("body", body)
   let query = `UPDATE listings  SET
   title = '${body.title}',
   price = '${body.price}',
@@ -64,13 +57,12 @@ const updateListingById = (db, id, body) => {
   categories = '${body.categories}'
   WHERE id = $1;`;
 
-  console.log("myQuery:",query)
+  console.log("myQuery:", query)
   return db.query(query, [id]).then((response) => {
     console.log("This is a update complete", response.rows);
     return response.rows;
   });
 };
-// UPDATE listings SET description = 'newDescriptpion', image_url = 'https://avatars.githubusercontent.com/u/38992135?v=4' ,price = 250, sold = FALSE, active = FALSE WHERE id = 7;
 // ***********************************QUERIES **************************************
 module.exports = (db) => {
   // GET api/listings/
