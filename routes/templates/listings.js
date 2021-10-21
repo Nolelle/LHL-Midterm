@@ -41,16 +41,15 @@ module.exports = (makeRequest) => {
   router.get("/new", (req, res) => {
     let templateVars = {
       emailCookie: req.cookies.email,
-      userID: req.cookies.userID
+      userID: req.cookies.userID,
     };
     res.render("newListing", templateVars);
   });
 
   router.get("/:id", (req, res) => {
-    console.log("Got here:")
     let templateVars = {
       emailCookie: req.cookies.email,
-      userID: req.cookies.userID
+      userID: req.cookies.userID,
     };
     // req dosent know serverhost (localhost) automatically, so its hard coded into this request
     // TODO: add server host and port to .env file
@@ -70,14 +69,13 @@ module.exports = (makeRequest) => {
       .catch((error) => {
         console.log(error);
       });
-
   });
 
   router.get("/:id/edit", (req, res) => {
     // change singleListing to edit listing page, and fill in template vars (getting from listing id) to fill out the form
     let templateVars = {
       emailCookie: req.cookies.email,
-      userID: req.cookies.userID
+      userID: req.cookies.userID,
     };
     makeRequest(`http://localhost:8080/api/listings/${req.params.id}`)
       .then((listing) => {

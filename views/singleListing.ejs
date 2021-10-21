@@ -7,7 +7,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-  <script type="text/javascript" src="/scripts/app.js"></script>
+  <script type="text/javascript" src="/scripts/soldButton.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body>
@@ -22,7 +25,9 @@
           <!-- button divs -->
           <div>
             <% if(userID){ %>
-              <button type="submit" class="btn btn-primary">Mark as sold</button>
+              <div class='sold-button'>
+                <button type="submit" class="btn btn-primary">Mark as sold</button>
+              </div>
               <button type="submit" class="btn btn-primary">Favourite</button>
               <button type="submit" class="btn btn-primary">Edit</button>
               <button type="submit" class="btn btn-primary">Delete</button>
