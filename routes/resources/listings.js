@@ -54,15 +54,18 @@ const queryGetAllListingsDataOrderByDate = function (db) {
 // };
 
 const updateListingById = (db, id, body) => {
-  let query = `UPDATE listings SET
-  description = ${body.description},
-  image_url = ${body.image_url},
-  price = ${body.price},
-  sold = ${body.sold},
-  active = ${body.active}
-  WHERE id = ${id}`;
+  console.log("body",body)
+  let query = `UPDATE listings  SET
+  title = '${body.title}',
+  price = '${body.price}',
+  description = '${body.description}',
+  condition = '${body.condition}',
+  image_url = '${body.image_url}',
+  categories = '${body.categories}'
+  WHERE id = $1;`;
+
   console.log("myQuery:",query)
-  return db.query(query).then((response) => {
+  return db.query(query, [id]).then((response) => {
     console.log("This is a update complete", response.rows);
     return response.rows;
   });
