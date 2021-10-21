@@ -143,8 +143,10 @@ module.exports = (db) => {
     console.log("req is :", req.body);
     updateSoldForListing(db, req.params.id, req.body.sold)
       .then(() => {
-        console.log("inside resources/setSold");
-        res.redirect(`/listings/${req.params.id}`);
+        console.log(
+          `Set sold to ${req.body.sold} for listing ${req.params.id}`
+        );
+        res.send(`Set sold to ${req.body.sold} for listing ${req.params.id}`);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });

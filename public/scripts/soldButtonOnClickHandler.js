@@ -9,6 +9,8 @@ $(() => {
       method: "POST",
       url: `/api/listings/${id}/setSold`,
       data: { sold: true },
+    }).then(() => {
+      $(location).attr("href", url);
     });
   });
 
@@ -18,6 +20,8 @@ $(() => {
       method: "POST",
       url: `/api/listings/${id}/setSold`,
       data: { sold: false },
+    }).then(() => {
+      $(location).attr("href", url);
     });
   });
 });
