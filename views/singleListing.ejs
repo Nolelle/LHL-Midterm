@@ -24,13 +24,23 @@
           <!-- button divs -->
           <div>
             <% if(userID){ %>
-              <div class='sold-button'>
-                <button type="submit" class="btn btn-primary">Mark as sold</button>
-              </div>
-              <button type="submit" class="btn btn-primary">Favourite</button>
-              <button type="submit" class="btn btn-primary">Edit</button>
-              <button type="submit" class="btn btn-primary">Delete</button>
-              <% } %>
+              <%if(listing.sold) { %>
+                <div id='sold-button'>
+                  <button type="submit" class="btn btn-primary">
+                    Sold!
+                  </button>
+                </div>
+                <% } else { %>
+                  <div id='sold-button'>
+                    <button type="submit" class="btn btn-primary">
+                      Mark as sold
+                    </button>
+                  </div>
+                  <% } %>
+                    <button type="submit" class="btn btn-primary">Favourite</button>
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                    <button type="submit" class="btn btn-primary">Delete</button>
+                    <% } %>
           </div>
           <!-- button divs -->
           <h3>
