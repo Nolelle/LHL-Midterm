@@ -5,23 +5,27 @@ $(() => {
 
   $("#remove-favourite-button").on("click", function (event) {
     event.preventDefault();
-    $.ajax({
-      method: "POST",
-      url: `/api/favourites/${id}/removeFavourite`,
-      data: { id: null },
-    }).then(() => {
-      $(location).attr("href", url);
-    });
+    const url = `/api/favourites/${}/removeFavourite`;
+    const data = { id: null };
+
+    $.post(url, data)
+      .then(() => {
+        $(location).attr("href", url);
+      })
+      .catch((error) > {
+        console.log(error)
+      });
   });
 
   $("#add-favourite-button").on("click", function (event) {
     event.preventDefault();
-    $.ajax({
-      method: "POST",
-      url: `/api/favourites/${id}/addFavourite`,
-      data: { id : },
-    }).then(() => {
-      $(location).attr("href", url);
-    });
-  });
+    const url = `/api/favourites/${}/removeFavourite`;
+    const data = {  };
+    $.post(url, data)
+      .then(() => {
+        $(location).attr("href", url);
+      })
+      .catch((error) > {
+        console.log(error)
+      });
 });
