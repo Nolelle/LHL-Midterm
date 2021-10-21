@@ -60,6 +60,13 @@ module.exports = (makeRequest) => {
           .then((listing) => {
             console.log("in templates listing", JSON.parse(listing));
             templateVars["listing"] = JSON.parse(listing);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        makeRequest(`http://localhost:8080/api/favourites/${req.params.id}`)
+          .then((favourites) => {
+            templateVars["favourites"] = JSON.parse(favourites);
             res.render("singleListing", templateVars);
           })
           .catch((error) => {

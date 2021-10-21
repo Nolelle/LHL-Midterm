@@ -1,46 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-  <header>
-    <nav class="navbar navbar-default ">
-      <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button
-            type="button"
-            class="navbar-toggle collapsed"
-            data-toggle="collapse"
-            data-target="#bs-example-navbar-collapse-1"
-            aria-expanded="false"
-          >
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/" method="GET">Buy/Sell Website</a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <% if(userID){ %>
+<header>
+  <nav class="navbar navbar-default ">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+          data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/" method="GET">Buy/Sell Website</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <% if(userID){ %>
             <li class="active">
-              <a class="nav-item nav-link" href="/listings/new"
-                >Create New Listing</a
-              >
+              <a class="nav-item nav-link" href="/listings/new">Create New Listing</a>
             </li>
             <li>
-              <a class="nav-item nav-link" href="/favourites">My Favourite</a>
+              <a class="nav-item nav-link" href="/favourites/<%=userID%>">My Favourite</a>
             </li>
-          </ul>
-          <form action="/logout" method="POST">
-            <button class="btn btn-primary" type="submit">Logout</button>
-          </form>
-          <% } else { %>
+        </ul>
+        <form action="/logout" method="POST">
+          <button class="btn btn-primary" type="submit">Logout</button>
+        </form>
+        <% } else { %>
           <form action="/login" method="GET">
             <button class="btn btn-primary" type="submit">Login</button>
           </form>
           <% } %>
-        </div>
       </div>
-    </nav>
-  </header>
+    </div>
+  </nav>
+</header>
+
 </html>
