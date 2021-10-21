@@ -9,7 +9,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
     integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script type="text/javascript" src="/scripts/soldButton.js"></script>
+  <script type="text/javascript" src="/scripts/soldButtonOnClickHandler.js"></script>
 </head>
 
 <body>
@@ -25,17 +25,19 @@
           <div>
             <% if(userID){ %>
               <%if(listing.sold) { %>
-                <div id='sold-button'>
-                  <button type="submit" class="btn btn-primary">
-                    Sold!
-                  </button>
-                </div>
+
+                <button id='mark-as-available-button' class="btn btn-primary">
+                  Mark As Available
+                </button>
+                <h1>This item is sold.</h1>
+
                 <% } else { %>
-                  <div id='sold-button'>
-                    <button type="submit" class="btn btn-primary">
-                      Mark as sold
-                    </button>
-                  </div>
+
+                  <button id='mark-as-sold-button' class="btn btn-primary">
+                    Mark as sold
+                  </button>
+                  <h1>This item is Available.</h1>
+
                   <% } %>
                     <button type="submit" class="btn btn-primary">Favourite</button>
                     <button type="submit" class="btn btn-primary">Edit</button>

@@ -58,6 +58,7 @@ module.exports = (makeRequest) => {
         templateVars["comments"] = JSON.parse(comments);
         makeRequest(`http://localhost:8080/api/listings/${req.params.id}`)
           .then((listing) => {
+            console.log("in templates listing", JSON.parse(listing));
             templateVars["listing"] = JSON.parse(listing);
             res.render("singleListing", templateVars);
           })
