@@ -80,7 +80,6 @@ module.exports = (makeRequest) => {
     makeRequest(`http://localhost:8080/api/listings/${req.params.id}`)
       .then((listing) => {
         templateVars["listing"] = JSON.parse(listing);
-        console.log(templateVars);
         // TODO: Render editListing
         res.render("editListing", templateVars);
       })

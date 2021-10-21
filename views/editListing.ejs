@@ -5,14 +5,16 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
   </head>
 
   <body>
     <%- include('partials/nav-bar') %>
     <main style="margin: 1em">
-      <form action="/new-post" method="POST">
+      <form action="/api/listings/<%=listingID%>/edit" method="post">
         <div>
         </div>
 
@@ -20,19 +22,19 @@
         <!-- Title -->
         <div>
           <label for="title">Title</label>
-          <input placeholder=<%= listing.title %>></input><br>
+          <input name="title" placeholder=<%= listing.title %>></input><br>
         </div>
 
         <!-- Price -->
         <div>
           <label for="price">Price</label>
-          <input placeholder=<%= listing.price %>></input><br>
+          <input name="price" placeholder=<%= listing.price %>></input><br>
         </div>
 
         <!-- Description -->
         <div>
           <label for="description">Description</label>
-          <input placeholder=<%= listing.description %>></input><br>
+          <input name="description" placeholder=<%= listing.description %>></input><br>
         </div>
 
         <!-- Condition -->
@@ -50,13 +52,14 @@
         <!-- image -->
         <div>
           <label for="image">Image</label>
-          <input type="text" placeholder="Post an image URL" />
+          <input name="image_url" type="text" placeholder="Post an image URL" />
         </div>
 
         <!-- category -->
+        <!-- check out the select option docs (has value associated with option) -->
         <div>
           <label for="category">Category</label>
-          <select name="category">
+          <select name="categories">
             <option>FREE</option>
             <option>Vehicles</option>
             <option>Electronics</option>

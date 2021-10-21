@@ -9,12 +9,14 @@ const queryGetListingsById = function (db, id) {
   });
 };
 
+
 const queryGetAllListingsDataOrderByDate = function (db) {
   let query = `SELECT * FROM listings ORDER BY date_created DESC;`;
   return db.query(query).then((response) => {
     return response.rows;
   });
 };
+
 
 const updateListingById = (db, id, body) => {
   let query = `UPDATE listings  SET
@@ -25,6 +27,7 @@ const updateListingById = (db, id, body) => {
   image_url = $5,
   categories = $6
   WHERE id = $7;`;
+  
   return db
     .query(query, [
       body.title,
@@ -57,10 +60,12 @@ const addNewListing = (db, body, userIDcookie) => {
       false,
       true,
     ])
+
     .then((response) => {
       return response.rows;
     });
 };
+
 
 const queryGetListingsBySearchParams = function (db, searchParams) {
   return queryGetAllListingsDataOrderByDate(db).then((listings) => {
@@ -106,6 +111,7 @@ const updateSoldForListing = (db, id, sold) => {
     return response.rows;
   });
 };
+
 
 // ***********************************QUERIES **************************************
 module.exports = (db) => {
@@ -180,11 +186,23 @@ module.exports = (db) => {
           `Set sold to ${req.body.sold} for listing ${req.params.id}`
         );
         res.send(`Set sold to ${req.body.sold} for listing ${req.params.id}`);
+
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
   });
+  
+  router.post("/new", (req, res) => {
+    addNewListing(db, req.body, req.cookies.userID)
+      .then(() => {
+        res.redirect("/")
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
+
 
   return router;
 };
