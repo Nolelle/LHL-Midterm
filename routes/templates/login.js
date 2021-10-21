@@ -4,17 +4,12 @@
 const express = require("express");
 const router = express.Router();
 
-module.exports = () => {
-  //GET login
-  router.get("/", (req, res) => {
-    res.render("login");
-  });
 
-  router.post("/", (req, res) => {
-    const inputEmail = req.body.email;
-    const inputPassword = req.body.password;
-    res.cookie("email", inputEmail);
-    res.redirect("/");
+
+module.exports = (makeRequest) => {
+  router.get("/", (req, res) => {
+    res.render("login")
   });
   return router;
 };
+
