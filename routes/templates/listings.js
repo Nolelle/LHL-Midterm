@@ -78,8 +78,6 @@ module.exports = (makeRequest) => {
     let templateVars = {
       emailCookie: req.cookies.email,
       userID: req.cookies.userID
-      listingID: req.params.id
-
     };
     makeRequest(`http://localhost:8080/api/listings/${req.params.id}`)
       .then((listing) => {
