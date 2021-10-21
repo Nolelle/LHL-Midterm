@@ -9,6 +9,59 @@ const queryGetListingsById = function (db, id) {
   });
 };
 
+const queryGetAllListingsDataOrderByDate = function (db) {
+  let query = `SELECT * FROM listings ORDER BY date_created DESC;`;
+  return db.query(query).then((response) => {
+    return response.rows;
+  });
+};
+
+const updateListingById = (db, id, body) => {
+  let query = `UPDATE listings  SET
+  title = $1,
+  price = $2,
+  description = $3,
+  condition = $4,
+  image_url = $5,
+  categories = $6
+  WHERE id = $7;`;
+  return db
+    .query(query, [
+      body.title,
+      body.price,
+      body.description,
+      body.condition,
+      body.image_url,
+      body.categories,
+      id,
+    ])
+    .then((response) => {
+      return response.rows;
+    });
+};
+
+const addNewListing = (db, body, userIDcookie) => {
+  let query = `INSERT INTO listings (user_id,title,image_url,condition,price,description,categories,date_created,sold,active)
+  VALUES ($1,$2,$3,$4,$5,$6,$7,to_timestamp($8),$9,$10)`;
+
+  return db
+    .query(query, [
+      userIDcookie,
+      body.title,
+      body.image_url,
+      body.condition,
+      body.price,
+      body.description,
+      body.categories,
+      Date.now() / 1000,
+      false,
+      true,
+    ])
+    .then((response) => {
+      return response.rows;
+    });
+};
+
 const queryGetListingsBySearchParams = function (db, searchParams) {
   return queryGetAllListingsDataOrderByDate(db).then((listings) => {
     let result = JSON.parse(JSON.stringify(listings));
@@ -25,13 +78,11 @@ const queryGetListingsBySearchParams = function (db, searchParams) {
     if (parseFloat(searchParams.minimum_price)) {
       let floatMin = parseFloat(searchParams.minimum_price);
       result = result.filter((listing) => listing.price >= floatMin);
-      console.log("floatMin:", result);
     }
     // maximum
     if (parseFloat(searchParams.maximum_price)) {
       let floatMax = parseFloat(searchParams.maximum_price);
       result = result.filter((listing) => listing.price <= floatMax);
-      console.log("floatMax:", result);
     }
     // condition
     if (searchParams.condition) {
@@ -43,34 +94,6 @@ const queryGetListingsBySearchParams = function (db, searchParams) {
       );
     }
     return result;
-  });
-};
-
-const queryGetAllListingsDataOrderByDate = function (db) {
-  let query = `SELECT * FROM listings ORDER BY date_created DESC;`;
-  return db.query(query).then((response) => {
-    return response.rows;
-  });
-};
-
-// const queryGetNextSixListingsDataOrderByDate = function (db) {
-//   let query = `SELECT * FROM listings ORDER BY date_created DESC OFFSET 6 FETCH NEXT 6 ROWS ONLY`;
-//   return db.query(query).then((response) => {
-//     return response.rows;
-//   });
-// };
-
-const updateListingById = (db, id, newFields) => {
-  let query = `UPDATE listings SET
-  description = ${newFields.description},
-  image_url = ${newFields.image_url},
-  price = ${newFields.price},
-  sold = ${newFields.sold},
-  active = ${newFields.active}
-  WHERE id = ${id}`;
-  return db.query(query).then((response) => {
-    console.log("This is a update complete", response.rows);
-    return response.rows;
   });
 };
 
@@ -106,6 +129,7 @@ module.exports = (db) => {
         res.status(500).json({ error: err.message });
       });
   });
+
   router.get("/page", (req, res) => {
     queryGetAllListingsDataOrderByDate(db, req.query)
       .then((listings) => {
@@ -129,10 +153,19 @@ module.exports = (db) => {
 
   //POST /listings/id/edit
   router.post("/:id/edit", (req, res) => {
-    console.log("req is :", req.body);
-    updateListingById(db, req.params.id, req.body.newFields)
-      .then((data) => {
-        console.log("update complete:", data);
+    updateListingById(db, req.params.id, req.body)
+      .then(() => {
+        res.redirect(`/listings/${req.params.id}`);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
+
+  router.post("/new", (req, res) => {
+    addNewListing(db, req.body, req.cookies.userID)
+      .then(() => {
+        res.redirect("/");
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
@@ -152,5 +185,6 @@ module.exports = (db) => {
         res.status(500).json({ error: err.message });
       });
   });
+
   return router;
 };

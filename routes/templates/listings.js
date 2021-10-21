@@ -1,12 +1,12 @@
 /*
  * All template routes for localhost:8080:/listings are defined here
  */
+
 const express = require("express");
 const comments = require("../resources/comments");
 const router = express.Router();
 
 module.exports = (makeRequest) => {
-  //We may use this route for our search button
   router.get("/", (req, res) => {
     makeRequest(`http://localhost:8080/api/listings`)
       .then((data) => {
@@ -62,7 +62,6 @@ module.exports = (makeRequest) => {
             templateVars["listing"] = JSON.parse(listing);
             res.render("singleListing", templateVars);
           })
-          // TODO REVIEW: CAN I DELETE THIS?
           .catch((error) => {
             console.log(error);
           });
