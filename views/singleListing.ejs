@@ -9,7 +9,6 @@
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
 </head>
-
 <body>
   <%- include('partials/nav-bar') %>
     <%- include('partials/leftSearchBar') %>
@@ -17,24 +16,22 @@
         <!-- Image -->
         <img src="<%= listing.image_url%>" alt="" />
 
-        <!-- this div contains the big box of information relative to the post -->
-        <div class="description-box" style="background-color: aquamarine">
-          <!-- button divs -->
-          <div>
-            <% if(userID){ %>
-              <button type="submit" class="btn btn-primary">Mark as sold</button>
-              <button type="submit" class="btn btn-primary">Favourite</button>
-              <button type="submit" class="btn btn-primary">Edit</button>
-              <button type="submit" class="btn btn-primary">Delete</button>
-              <% } %>
-          </div>
-          <!-- button divs -->
-          <h3>
-            <%= listing.title %>
-          </h3>
-          <p>
-            <%= listing.description %>
-          </p>
+      <!-- this div contains the big box of information relative to the post -->
+      <div class="description-box" style="background-color: aquamarine">
+        <!-- button divs -->
+        <div>
+          <h1>Mark as sold?</h1>
+          <button type="submit" class="btn btn-primary">Mark as sold</button>
+          <button type="submit" class="btn btn-primary">Favourite</button>
+          <a type="submit" class="btn btn-primary" href="http://localhost:8080/listings/<%=listing.id%>/edit">Edit</a>
+
+          <button type="submit" class="btn btn-primary">Delete</button>
+        </div>
+         <!-- button divs -->
+        <h3><%= listing.title %></h3>
+        <p><%= listing.description %></p>
+
+
 
           <!-- div here for moving price/condition (paired together) -->
           <div>

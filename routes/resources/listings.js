@@ -46,27 +46,23 @@ const queryGetAllListingsDataOrderByDate = function (db) {
   });
 };
 
-// const queryGetNextSixListingsDataOrderByDate = function (db) {
-//   let query = `SELECT * FROM listings ORDER BY date_created DESC OFFSET 6 FETCH NEXT 6 ROWS ONLY`;
-//   return db.query(query).then((response) => {
-//     return response.rows;
-//   });
-// };
+const updateListingById = (db, id, body) => {
+  console.log("body", body)
+  let query = `UPDATE listings  SET
+  title = '${body.title}',
+  price = '${body.price}',
+  description = '${body.description}',
+  condition = '${body.condition}',
+  image_url = '${body.image_url}',
+  categories = '${body.categories}'
+  WHERE id = $1;`;
 
-const updateListingById = (db, id, newFields) => {
-  let query = `UPDATE listings SET
-  description = ${newFields.description},
-  image_url = ${newFields.image_url},
-  price = ${newFields.price},
-  sold = ${newFields.sold},
-  active = ${newFields.active}
-  WHERE id = ${id}`;
-  return db.query(query).then((response) => {
+  console.log("myQuery:", query)
+  return db.query(query, [id]).then((response) => {
     console.log("This is a update complete", response.rows);
     return response.rows;
   });
 };
-
 // ***********************************QUERIES **************************************
 module.exports = (db) => {
   // GET api/listings/
@@ -113,7 +109,7 @@ module.exports = (db) => {
   //POST /listings/id/edit
   router.post("/:id/edit", (req, res) => {
     console.log("req is :", req.body);
-    updateListingById(db, req.params.id, req.body.newFields)
+    updateListingById(db, req.params.id, req.body)
       .then((data) => {
         console.log("update complete:", data);
       })
