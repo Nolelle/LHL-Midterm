@@ -27,26 +27,40 @@ const updateListingById = (db, id, body) => {
   image_url = $5,
   categories = $6
   WHERE id = $7;`;
-  return db.query(query, [body.title, body.price, body.description, body.condition, body.image_url, body.categories, id]).then((response) => {
-    return response.rows;
-  });
+  
+  return db
+    .query(query, [
+      body.title,
+      body.price,
+      body.description,
+      body.condition,
+      body.image_url,
+      body.categories,
+      id,
+    ])
+    .then((response) => {
+      return response.rows;
+    });
 };
-
 
 const addNewListing = (db, body, userIDcookie) => {
   let query = `INSERT INTO listings (user_id,title,image_url,condition,price,description,categories,date_created,sold,active)
-  VALUES ($1,$2,$3,$4,$5,$6,$7,to_timestamp($8),$9,$10)`
+  VALUES ($1,$2,$3,$4,$5,$6,$7,to_timestamp($8),$9,$10)`;
 
-  return db.query(query, [userIDcookie,
-    body.title,
-    body.image_url,
-    body.condition,
-    body.price,
-    body.description,
-    body.categories,
-    Date.now()/1000,
-    false,
-    true])
+  return db
+    .query(query, [
+      userIDcookie,
+      body.title,
+      body.image_url,
+      body.condition,
+      body.price,
+      body.description,
+      body.categories,
+      Date.now() / 1000,
+      false,
+      true,
+    ])
+
     .then((response) => {
       return response.rows;
     });
@@ -54,31 +68,51 @@ const addNewListing = (db, body, userIDcookie) => {
 
 
 const queryGetListingsBySearchParams = function (db, searchParams) {
-  return queryGetAllListingsDataOrderByDate(db)
-    .then((listings) => {
-      let result = JSON.parse(JSON.stringify(listings))
-      // title
-      if (searchParams.title) {
-        result = result.filter(listing => listing.title.toLowerCase().search(searchParams.title.toLowerCase()) !== -1)
-      }
-      // minimum
-      if (parseFloat(searchParams.minimum_price)) {
-
-        let floatMin = parseFloat(searchParams.minimum_price)
-        result = result.filter(listing => listing.price >= floatMin)
-      }
-      // maximum
-      if (parseFloat(searchParams.maximum_price)) {
-        let floatMax = parseFloat(searchParams.maximum_price)
-        result = result.filter(listing => listing.price <= floatMax)
-      }
-      // condition
-      if (searchParams.condition) {
-        result = result.filter(listing => listing.condition.toLowerCase().search(searchParams.condition.toLowerCase()) !== -1)
-      }
-      return result
-    })
+  return queryGetAllListingsDataOrderByDate(db).then((listings) => {
+    let result = JSON.parse(JSON.stringify(listings));
+    // title
+    if (searchParams.title) {
+      result = result.filter(
+        (listing) =>
+          listing.title
+            .toLowerCase()
+            .search(searchParams.title.toLowerCase()) !== -1
+      );
+    }
+    // minimum
+    if (parseFloat(searchParams.minimum_price)) {
+      let floatMin = parseFloat(searchParams.minimum_price);
+      result = result.filter((listing) => listing.price >= floatMin);
+    }
+    // maximum
+    if (parseFloat(searchParams.maximum_price)) {
+      let floatMax = parseFloat(searchParams.maximum_price);
+      result = result.filter((listing) => listing.price <= floatMax);
+    }
+    // condition
+    if (searchParams.condition) {
+      result = result.filter(
+        (listing) =>
+          listing.condition
+            .toLowerCase()
+            .search(searchParams.condition.toLowerCase()) !== -1
+      );
+    }
+    return result;
+  });
 };
+
+const updateSoldForListing = (db, id, sold) => {
+  let query = `UPDATE listings
+  SET sold = $1
+  WHERE id = $2`;
+  return db.query(query, [sold, id]).then((response) => {
+    console.log("This is a update complete", response.rows);
+    return response.rows;
+  });
+};
+
+
 // ***********************************QUERIES **************************************
 module.exports = (db) => {
   // GET api/listings/
@@ -101,6 +135,7 @@ module.exports = (db) => {
         res.status(500).json({ error: err.message });
       });
   });
+
   router.get("/page", (req, res) => {
     queryGetAllListingsDataOrderByDate(db, req.query)
       .then((listings) => {
@@ -126,12 +161,38 @@ module.exports = (db) => {
   router.post("/:id/edit", (req, res) => {
     updateListingById(db, req.params.id, req.body)
       .then(() => {
-        res.redirect(`/listings/${req.params.id}`)
+        res.redirect(`/listings/${req.params.id}`);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
   });
+
+  router.post("/new", (req, res) => {
+    addNewListing(db, req.body, req.cookies.userID)
+      .then(() => {
+        res.redirect("/");
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
+
+  router.post("/:id/setSold", (req, res) => {
+    console.log("req is :", req.body);
+    updateSoldForListing(db, req.params.id, req.body.sold)
+      .then(() => {
+        console.log(
+          `Set sold to ${req.body.sold} for listing ${req.params.id}`
+        );
+        res.send(`Set sold to ${req.body.sold} for listing ${req.params.id}`);
+
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
+  
   router.post("/new", (req, res) => {
     addNewListing(db, req.body, req.cookies.userID)
       .then(() => {

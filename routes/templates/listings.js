@@ -1,12 +1,12 @@
 /*
  * All template routes for localhost:8080:/listings are defined here
  */
+
 const express = require("express");
 const comments = require("../resources/comments");
 const router = express.Router();
 
 module.exports = (makeRequest) => {
-  //We may use this route for our search button
   router.get("/", (req, res) => {
     makeRequest(`http://localhost:8080/api/listings`)
       .then((data) => {
@@ -41,16 +41,15 @@ module.exports = (makeRequest) => {
   router.get("/new", (req, res) => {
     let templateVars = {
       emailCookie: req.cookies.email,
-      userID: req.cookies.userID
+      userID: req.cookies.userID,
     };
     res.render("newListing", templateVars);
   });
 
   router.get("/:id", (req, res) => {
-    console.log("Got here:")
     let templateVars = {
       emailCookie: req.cookies.email,
-      userID: req.cookies.userID
+      userID: req.cookies.userID,
     };
     // req dosent know serverhost (localhost) automatically, so its hard coded into this request
     // TODO: add server host and port to .env file
@@ -59,10 +58,10 @@ module.exports = (makeRequest) => {
         templateVars["comments"] = JSON.parse(comments);
         makeRequest(`http://localhost:8080/api/listings/${req.params.id}`)
           .then((listing) => {
+            console.log("in templates listing", JSON.parse(listing));
             templateVars["listing"] = JSON.parse(listing);
             res.render("singleListing", templateVars);
           })
-          // TODO REVIEW: CAN I DELETE THIS?
           .catch((error) => {
             console.log(error);
           });
@@ -70,7 +69,6 @@ module.exports = (makeRequest) => {
       .catch((error) => {
         console.log(error);
       });
-
   });
 
   router.get("/:id/edit", (req, res) => {
@@ -78,7 +76,6 @@ module.exports = (makeRequest) => {
     let templateVars = {
       emailCookie: req.cookies.email,
       userID: req.cookies.userID,
-      listingID: req.params.id
     };
     makeRequest(`http://localhost:8080/api/listings/${req.params.id}`)
       .then((listing) => {
