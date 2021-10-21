@@ -8,6 +8,7 @@ const router = express.Router();
 module.exports = () => {
   router.post("/", (req, res) => {
     res.clearCookie("email");
+    res.clearCookie("userID");
     res.redirect("/");
   });
   return router;

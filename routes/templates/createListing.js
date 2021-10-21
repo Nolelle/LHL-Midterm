@@ -9,6 +9,7 @@ module.exports = () => {
   router.get("/", (req, res) => {
     let templateVars = {
       emailCookie: req.cookies.email,
+      userID: req.cookies.userID
     };
     res.render("newListing", templateVars);
   });

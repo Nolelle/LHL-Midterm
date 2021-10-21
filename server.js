@@ -55,9 +55,10 @@ app.use("/api/comments", commentAPIRoutes(db));
 app.use("/api/listings", listingAPIRoutes(db));
 app.use("/api/users", userAPIRoutes(db));
 
+
 // template routes
 app.use("/", indexRoutes(makeRequest));
-app.use("/login", loginRoutes());
+app.use("/login", loginRoutes(makeRequest));
 app.use("/logout", logoutRoutes());
 app.use("/favourites", favouritesRoutes(makeRequest));
 app.use("/createListing", createListingRoutes());
