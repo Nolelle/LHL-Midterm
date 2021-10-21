@@ -1,4 +1,5 @@
-//document ready function
+
+// document ready
 $(() => {
   const url = window.location.pathname;
   const id = url.substring(url.lastIndexOf("/") + 1);
@@ -24,4 +25,9 @@ $(() => {
       $(location).attr("href", url);
     });
   });
+
 });
+
+
+
+

@@ -27,7 +27,7 @@ const updateListingById = (db, id, body) => {
   image_url = $5,
   categories = $6
   WHERE id = $7;`;
-  
+
   return db
     .query(query, [
       body.title,
@@ -47,8 +47,7 @@ const addNewListing = (db, body, userIDcookie) => {
   let query = `INSERT INTO listings (user_id,title,image_url,condition,price,description,categories,date_created,sold,active)
   VALUES ($1,$2,$3,$4,$5,$6,$7,to_timestamp($8),$9,$10)`;
 
-  return db
-    .query(query, [
+  return db.query(query, [
       userIDcookie,
       body.title,
       body.image_url,
@@ -60,7 +59,6 @@ const addNewListing = (db, body, userIDcookie) => {
       false,
       true,
     ])
-
     .then((response) => {
       return response.rows;
     });
@@ -107,7 +105,6 @@ const updateSoldForListing = (db, id, sold) => {
   SET sold = $1
   WHERE id = $2`;
   return db.query(query, [sold, id]).then((response) => {
-    console.log("This is a update complete", response.rows);
     return response.rows;
   });
 };
@@ -179,20 +176,15 @@ module.exports = (db) => {
   });
 
   router.post("/:id/setSold", (req, res) => {
-    console.log("req is :", req.body);
     updateSoldForListing(db, req.params.id, req.body.sold)
       .then(() => {
-        console.log(
-          `Set sold to ${req.body.sold} for listing ${req.params.id}`
-        );
         res.send(`Set sold to ${req.body.sold} for listing ${req.params.id}`);
-
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
   });
-  
+
   router.post("/new", (req, res) => {
     addNewListing(db, req.body, req.cookies.userID)
       .then(() => {
