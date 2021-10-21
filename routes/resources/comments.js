@@ -13,13 +13,17 @@ const queryGetCommentsByListingID = function (db, listingID) {
   });
 };
 
-const queryAddCommentToDB = function (db, commentParams) {
-  let query = `INSERT INTO comments (user_id,listing_id,msg_text,date_created) VALUES ($1,$2,$3,$4)`;
-
-  return db.query(query,[1, commentParams.listing_id, commentParams.msg_text, commentParams.date_created])
+const addNewComment = function (db, listing_id, msg_text, userIDcookie) {
+  let query = `INSERT INTO comments (user_id,listing_id,msg_text,date_created)
+  VALUES ($1,$2,$3,to_timestamp($4)) returning *`;
+  return db.query(query, [
+    userIDcookie,
+    listing_id,
+    msg_text,
+    Date.now() / 1000
+  ])
     .then((response) => {
-      console.log("posted a comment", [1, commentParams.listing_id, commentParams.msg_text, commentParams.date_created])
-      return "posted a comment successfully";
+      return response.rows[0];
     });
 };
 
@@ -34,11 +38,16 @@ module.exports = (db) => {
         res.send(error);
       });
   });
-  router.post("/", (req, res) => {
-    queryAddCommentToDB(db, req.query)
+  router.post("/:id", (req, res) => {
+    console.log("req.body : ", req.body)
+    addNewComment(db, req.params.id, req.body.msg_text, req.cookies.userID)
       .then((comments) => {
         res.json(comments)
       })
+      .catch((error) => {
+        console.log(error);
+        res.send(error);
+      });
   });
   return router;
 };
