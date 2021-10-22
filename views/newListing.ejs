@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="../styles/main.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
@@ -14,27 +15,33 @@
   <body>
     <%- include('partials/nav-bar') %>
     <main style="margin: 1em">
-      <form action="/api/listings/new" method="POST">
+      <form class="create-post-form" action="/api/listings/new" method="POST">
         <!-- Title -->
-        <div>
+        <div class="create-post-div">
           <label for="title">Title</label>
           <input  name="title" type="text" placeholder="What are you selling?" />
         </div>
 
         <!-- Price -->
-        <div>
+        <div class="create-post-div">
           <label for="price">Price</label>
           <input name="price" type="number" placeholder="$50" />
         </div>
 
         <!-- Description -->
-        <div>
+        <div class="create-post-div">
           <label for="description">Description</label>
           <input name="description" type="text" placeholder="Write a bit about your item" />
         </div>
 
+
+        <!-- image -->
+        <div class="create-post-div">
+          <label for="image">Image</label>
+          <input name="image_url" type="text" placeholder="Post an image URL" />
+        </div>
         <!-- Condition -->
-        <div>
+        <div class="create-post-div">
           <label for="conditions">Condition</label>
           <select name="condition">
             <option>N/A</option>
@@ -45,14 +52,8 @@
           </select>
         </div>
 
-        <!-- image -->
-        <div>
-          <label for="image">Image</label>
-          <input name="image_url" type="text" placeholder="Post an image URL" />
-        </div>
-
         <!-- category -->
-        <div>
+        <div class="create-post-div">
           <label for="category">Category</label>
           <select name="categories">
             <option>FREE</option>
@@ -68,7 +69,7 @@
           </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary create-post-button">Submit</button>
       </form>
     </main>
   </body>

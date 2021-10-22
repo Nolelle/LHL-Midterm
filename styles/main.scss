@@ -1,17 +1,132 @@
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  h3 {
+    font-size: xx-large;
+    text-align: center;
+  }
+  p {
+    font-size: large;
+  }
+  .price {
+    color:green;
+  }
+  .main-container {
+    display: flex;
+    flex-direction: row;
+  }
+  .main-header {
+    text-align: center;
+    border-bottom: 4px dotted lightskyblue;
+  }
+  .comment-text{
+    text-align: center;
+  }
+  .comment-button {
+    display: inline;
+  }
+  .listing-title-main {
+    text-align: center;
+    border: 5px solid lightgrey;
+    border-radius: 5px;
+  }
+  .text-input-container {
+    display: flex;
+    justify-content: center;
+  }
+  .sidebar {
+    display:flex;
+    flex-direction: column;
+    width: 200px;
+    margin-left: 18px;
+    margin-top: 45px;
+  }
+  .create-post-div {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .create-post-form {
+    display: flex;
+    flex-direction: column;
+  }
+  .create-post-button {
+    width: 30%;
+    margin: auto;
+    margin-top: 10px;
+  }
+  .single-listing-main-container {
+    display:flex;
+    flex-direction: column;
+    margin-top: -200px;
+  }
+  .single-listing-image {
+    height: 300px;
+  }
+  .single-listing-image-div {
+    margin: auto;
+  }
+  .single-listing-buttons {
+    margin: auto;
+  }
+  .single-listing-title-container {
+    margin: auto;
+  }
+  .single-listing-titles {
+    font-weight: 900;
+  }
+  .single-listing-price {
+    color: green;
+  }
+  .description-box {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    border-style: solid;
+    border-radius: 20px;
+    box-shadow: 5px 10px;
+    margin-top: 20px;
+  }
+  .comment-textarea {
+    display:inline;
+    resize: none;
+    width: 500px;
+  }
+  .details-info-container {
+    margin: auto;
+  }
+  .seller-info-container {
+    margin: auto;
+  }
+  .comment-container {
+    margin: auto;
+  }
+  .single-listing-box {
+    padding: 20px;
+  }
+  .listings{
+    display:flex;
+    .listing {
+      width: 300px;
+      text-align: center;
+      .listing-image {
+        height: 200px;
+        width: 200px;
+      }
+      .title-text-div {
 
-  background: rgb(163, 208, 219);
-  background: linear-gradient(
-    227deg,
-    rgba(163, 208, 219, 1) 0%,
-    rgba(163, 176, 219, 1) 20%,
-    rgba(163, 173, 219, 1) 34%,
-    rgba(163, 219, 208, 1) 59%,
-    rgba(163, 208, 219, 1) 74%,
-    rgba(163, 208, 219, 1) 100%
-  );
+      }
+      .listing-title {
+
+      }
+      &:nth-child(4) {
+        margin-left: -900px;
+        margin-top: 300px;
+      }
+      &:nth-child(5) {
+        margin-top: 300px;
+      }
+      &:nth-child(6) {
+        margin-top: 300px;
+      }
+    }
+  }
 }

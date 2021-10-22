@@ -6,6 +6,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../styles/main.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
     integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
@@ -13,39 +14,36 @@
     integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
     crossorigin="anonymous"></script>
 </head>
-
 <body>
-  <%- include('partials/nav-bar') %>
-    <%- include('partials/leftSearchBar.ejs') %>
+
+  <div>
+    <%- include('partials/nav-bar') %>
+  </div>
+    <div class="main-container">
+      <div class="sidebar"><%- include('partials/leftSearchBar.ejs') %></div>
       <main>
-        <div>
-          <h2>My Favourite Listings</h2>
-
-          <table>
-            <tr>
-              <% for(const listing of orderedListings) { %>
-
-                <th>
-                  <div class="listing">
-                    <img height="200px" src=<%=listing.image_url %>></img><br>
-                    <div><b>
-                        <%= listing.title %>
-
-                      </b>
-                      <%= listing.name %>
-                        <p style="color:green"><b>$<%= listing.price %></b></p>
-                    </div>
-                  </div>
-                  <form action="/listings/<%=listing.id%>" method="GET">
-                    <button type="submit">View</button>
-                  </form>
-                </th>
-
-                <% } %>
-            </tr>
-          </table>
+      <h2 class="main-header">My Favourites</h2>
+        <div class="listing-title-main">
+          <div class="listings">
+            <% for(let i=0; i < orderedListings.length; i++) { %>
+              <div class="listing">
+                <div class="listing-content">
+                  <img class="listing-image" src=<%=orderedListings[i].image_url %>></img><br>
+                  <div><b class="listing-title">
+                    <%= orderedListings[i].title %>
+                  </b>
+                  <p><b class="price">$<%= orderedListings[i].price %></b></p>
+                </div>
+              </div>
+              <form action="/listings/<%=orderedListings[i].id%>" method="GET">
+                <button type="submit">View</button>
+              </form>
+            </div>
+            <% } %>
+          </div>
         </div>
-      </main>
+      </div>
+  </main>
 </body>
 
 </html>

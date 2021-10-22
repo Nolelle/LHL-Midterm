@@ -1,9 +1,9 @@
 // helper function for comments
 const createCommentElement = function (comment) {
-  return `<div style="background-color: lightgray">
+  return `<div class="comment-text">
     <p>
       ${comment.msg_text}
-      user:${comment.user_id}
+      -user:${comment.user_id}
     </p>
 </div>`;
 };
