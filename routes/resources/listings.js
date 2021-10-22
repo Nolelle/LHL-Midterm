@@ -172,7 +172,7 @@ module.exports = (db) => {
 
   router.post("/:id/edit", (req, res) => {
     if (!req.cookies.userID) {
-      res.statusCode(403).send("No userID present");
+      res.status(403).send("No userID present");
       return;
     }
     updateListingById(db, req.params.id, req.body)
@@ -186,7 +186,7 @@ module.exports = (db) => {
 
   router.post("/new", (req, res) => {
     if (!req.cookies.userID) {
-      res.statusCode(403).send("No userID present");
+      res.status(403).send("No userID present");
       return;
     }
     addNewListing(db, req.body, req.cookies.userID)
@@ -200,7 +200,7 @@ module.exports = (db) => {
 
   router.post("/:id/setSold", (req, res) => {
     if (!req.cookies.userID) {
-      res.statusCode(403).send("No userID present");
+      res.status(403).send("No userID present");
       return;
     }
     updateSoldForListing(db, req.params.id, req.body.sold)
@@ -214,7 +214,7 @@ module.exports = (db) => {
 
   router.post("/:id/addFavourite", (req, res) => {
     if (!req.cookies.userID) {
-      res.statusCode(403).send("No userID present");
+      res.status(403).send("No userID present");
       return;
     }
     addFavouriteForListing(db, req.cookies.userID, req.params.id)
@@ -246,7 +246,7 @@ module.exports = (db) => {
 
   router.post("/:id/removeFavourite", (req, res) => {
     if (!req.cookies.userID) {
-      res.statusCode(403).send("No userID present");
+      res.status(403).send("No userID present");
       return;
     }
     deleteFavouriteForListing(db, req.cookies.userID, req.params.id)
@@ -265,7 +265,7 @@ module.exports = (db) => {
 
   router.delete("/:id", (req, res) => {
     if (!req.cookies.userID) {
-      res.statusCode(403).send("No userID present");
+      res.status(403).send("No userID present");
       return;
     }
     deleteListing(db, req.params.id)
