@@ -1,4 +1,4 @@
-# Project: Buy/Sell Listing Website
+# Project: Anomolacorus Website
 
 ## Schedule
 
@@ -91,5 +91,3 @@
   - POST /listing/:listingid/comments (a button to create create a new comment, in the comments section under a listing) -- Check with mentor
   - POST /listings (post new created posting to posting table, and then redirect to /)
   - PATCH /listings/:listingsid (verify: sessionid is in browser so we check for that to ensure a user is can only edit there own listing)
-
-### Wireframes
