@@ -3,34 +3,20 @@
  */
 
 const express = require("express");
-const comments = require("../resources/comments");
 const router = express.Router();
 
 module.exports = (makeRequest) => {
   router.get("/", (req, res) => {
-    makeRequest(`http://localhost:8080/api/listings`)
+    makeRequest(`http://localhost:8080/api/listings/page/0`)
       .then((data) => {
         const orderedListings = JSON.parse(data);
-        orderedListings.push({
-          id: 3,
-          user_id: 1,
-          favourite_id: 1,
-          image_url: "https://ibb.co/VCx1ZWF",
-          condition: "good",
-          price: 500,
-          description: "description",
-          date_created: "2021-10-16T00:00:00.000Z",
-          date_modified: "2021-10-16T00:00:00.000Z",
-          sold: false,
-          active: true,
-          comment_id: 1,
-        });
+        // TODO: IMPLEMENT PAGE STATUS BY setting a page cookie
         const templateVars = {
           orderedListings,
           emailCookie: req.cookies.email,
           userID: req.cookies.userID,
+          pageNumber: 0,
         };
-        console.log(templateVars.orderedListings[0].price);
         res.render("index", templateVars);
       })
       .catch((error) => {

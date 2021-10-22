@@ -16,7 +16,7 @@ module.exports = (makeRequest) => {
           orderedListings,
           emailCookie: req.cookies.email,
           userID: req.cookies.userID,
-          pageNumber: 1,
+          pageNumber: 0,
         };
         res.render("index", templateVars);
       })
