@@ -6,7 +6,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+  <link href="../styles/main.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
     integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous" />
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
@@ -24,16 +24,16 @@
 
 <body>
   <%- include('partials/nav-bar') %>
-    <%- include('partials/leftSearchBar') %>
-      <main style="margin: 1em">
+    <div class="sidebar"><%- include('partials/leftSearchBar') %></div>
+      <main class="single-listing-main-container">
         <!-- ******************************************** Image div ******************************************** -->
-        <div>
-          <img src="<%= listing.image_url%>" />
+        <div class="single-listing-image-div">
+          <img class="single-listing-image" src="<%= listing.image_url%>" />
         </div>
         <!-- ******************************************** Image div end ******************************************** -->
 
         <!-- ******************************************** button div's ******************************************** -->
-        <div>
+        <div class="single-listing-buttons">
           <!-- check logged in -->
           <!-- EJS here a bit clunky -->
           <% if(userID && parseInt(userID)===listing.user_id){ %>
@@ -67,37 +67,37 @@
 
         <!-- ******************************************** description div's ******************************************** -->
         <!-- this div contains the big box of information relative to the post -->
-        <div class="description-box" style="background-color: aquamarine">
+        <div class="description-box">
           <!-- div for fb marketplace top -->
-          <div class="single-listing-title-container">
-            <h3>
+          <div class="single-listing-title-container single-listing-box">
+            <h3 class="single-listing-titles">
               <%= listing.title %>
             </h3>
-            <div>
-              <%= listing.price %>
+            <div class="single-listing-price">
+              <p><%= listing.price %></p>
             </div>
             <div>
-              <%= listing.date_created %>
+              <p><%= listing.date_created %></p>
             </div>
           </div>
           <!-- details div -->
-          <div class="details-info-container">
-            <h3>Details</h3>
+          <div class="details-info-container single-listing-box">
+            <h3 class="single-listing-titles">Details</h3>
             <!-- justify content space between -->
-            <div>condition:<%= listing.condition %>
-            </div>
-            <!-- description box -->
-            <div>description:<%= listing.description %>
+            <div><p><%= listing.condition %></p>
             </div>
             <!-- stretch: add category as button that will search with params of category? (cool idea) -->
-            <div>category: <%= listing.categories%>
+            <div><p> <%= listing.categories%></p>
+            </div>
+            <!-- description box -->
+            <div><p><%= listing.description %></p>
             </div>
           </div>
           <!-- stretch: add Icon for user? -->
-          <div class="seller-info-container">
-            <h3>Seller Information</h3>
+          <div class="seller-info-container single-listing-box">
+            <h3 class="single-listing-titles" >Seller Information</h3>
             <div>
-              <%= listing.user_id %>
+              <p>user with id: <%= listing.user_id %></p>
             </div>
           </div>
         </div>
@@ -105,28 +105,28 @@
 
         <!-- ******************************************** comments div ******************************************** -->
         <!-- Div here for comments -->
-        <h1><b>Comments</b></h1>
+        <h3><b>Comments</b></h3>
         <div id="comment-container">
           <% if (comments) { %>
             <% for (let comment of comments) { %>
-              <div style="background-color: lightgray">
+              <div class="comment-text">
                 <!-- userID stays in a div, Text in another -->
 
                 <p>
-                  <%= comment["msg_text"] %> user:<%= comment.user_id %>
+                  <%= comment["msg_text"] %> -user:<%= comment.user_id %>
                 </p>
               </div>
               <% } %>
                 <% } %>
         </div>
-        <div class="comment-box-container" style="background-color: lightpink">
+        <div class="comment-box-container" >
           <!-- <section class="new-tweet"> Maybe change all colored area into sections? -->
           <form id="comment-form" method="POST" action="/api/comments/<%= listing.id %>">
             <div class="text-input-container">
-              <textarea name="msg_text" placeholder="Negotiate Here"></textarea>
-            </div>
-            <div class="submit-container">
-              <button type="submit">Comment</button>
+              <div class=" text-input-container form-group">
+                <textarea class="comment-textarea form-control" name="msg_text" placeholder="Negotiate Here"></textarea>
+                <button type="submit" class="btn btn-primary comment-button">Comment</button>
+              </div>
             </div>
           </form>
         </div>

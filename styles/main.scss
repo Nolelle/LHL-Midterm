@@ -1,15 +1,100 @@
 body {
+  h3 {
+    font-size: xx-large;
+    text-align: center;
+  }
+  p {
+    font-size: large;
+  }
+  .price {
+    color:green;
+  }
   .main-container {
     display: flex;
     flex-direction: row;
   }
-  .listing-title {
+  .main-header {
     text-align: center;
+    border-bottom: 4px dotted lightskyblue;
+  }
+  .comment-text{
+    text-align: center;
+  }
+  .comment-button {
+    display: inline;
+  }
+  .listing-title-main {
+    text-align: center;
+    border: 5px solid lightgrey;
+    border-radius: 5px;
+  }
+  .text-input-container {
+    display: flex;
+    justify-content: center;
   }
   .sidebar {
     display:flex;
     flex-direction: column;
     width: 200px;
+  }
+  .create-post-div {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .create-post-form {
+    display: flex;
+    flex-direction: column;
+  }
+  .create-post-button {
+    width: 30%;
+    margin: auto;
+    margin-top: 10px;
+  }
+  .single-listing-main-container {
+    display:flex;
+    flex-direction: column;
+  }
+  .single-listing-image {
+    height: 300px;
+  }
+  .single-listing-image-div {
+    margin: auto;
+  }
+  .single-listing-buttons {
+    margin: auto;
+  }
+  .single-listing-title-container {
+    margin: auto;
+  }
+  .single-listing-titles {
+    font-weight: 900;
+  }
+  .single-listing-price {
+    color: green;
+  }
+  .description-box {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    border-style: double;
+  }
+  .comment-textarea {
+    display:inline;
+    resize: none;
+    width: 500px;
+  }
+  .details-info-container {
+    margin: auto;
+  }
+  .seller-info-container {
+    margin: auto;
+  }
+  .comment-container {
+    margin: auto;
+  }
+  .single-listing-box {
+    padding: 20px;
   }
   .listings{
     display:flex;

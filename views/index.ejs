@@ -20,40 +20,40 @@
 
   <div>
     <%- include('partials/nav-bar') %>
-    <div class="main-container">
-</div>
-<div class="sidebar"><%- include('partials/leftSearchBar.ejs') %></div>
-</div>
-  <h2>Most Recent Listings</h2>
-<main>
-    <div class="listing-title">
-    <div class="listings">
-      <% for(let i=0; i < orderedListings.length; i++) { %>
-        <div class="listing">
-          <div class="listing-content">
-            <img class="listing-image" src=<%=orderedListings[i].image_url %>></img><br>
-            <div><b class="listing-title">
-                <%= orderedListings[i].title %>
-              </b>
-              <p ><b>$<%= orderedListings[i].price %></b></p>
-            </div>
-          </div>
-          <form action="/listings/<%=orderedListings[i].id%>" method="GET">
-            <button type="submit">View</button>
-          </form>
-        </div>
-        <% } %>
-    </div>
   </div>
-    <nav aria-label="...">
-      <ul class="pager">
-        <li><a class="previous" href="#">Previous</a></li>
-        <li><a class="next" href="#">Next</a></li>
-      </ul>
-    </nav>
-    <div id="pageNumber" style="visibility:hidden">
-      <%= pageNumber %>
-    </div>
+    <div class="main-container">
+      <div class="sidebar"><%- include('partials/leftSearchBar.ejs') %></div>
+      <main>
+      <h2 class="main-header">Most Recent Listings</h2>
+        <div class="listing-title-main">
+          <div class="listings">
+            <% for(let i=0; i < orderedListings.length; i++) { %>
+              <div class="listing">
+                <div class="listing-content">
+                  <img class="listing-image" src=<%=orderedListings[i].image_url %>></img><br>
+                  <div><b class="listing-title">
+                    <%= orderedListings[i].title %>
+                  </b>
+                  <p><b class="price">$<%= orderedListings[i].price %></b></p>
+                </div>
+              </div>
+              <form action="/listings/<%=orderedListings[i].id%>" method="GET">
+                <button type="submit">View</button>
+              </form>
+            </div>
+            <% } %>
+          </div>
+        </div>
+        <nav aria-label="...">
+          <ul class="pager">
+            <li><a class="previous" href="#">Previous</a></li>
+            <li><a class="next" href="#">Next</a></li>
+          </ul>
+        </nav>
+        <div id="pageNumber" style="visibility:hidden">
+          <%= pageNumber %>
+        </div>
+      </div>
   </main>
 </body>
 

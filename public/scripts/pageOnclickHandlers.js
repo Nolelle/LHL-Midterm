@@ -1,16 +1,16 @@
 const createListingElement = function (listing) {
-  return `<div class= "listing">
-  <div class="listing-content">
-    <img height="200px" src=${listing.image_url}></img><br>
-    <div><b>
-   ${listing.title}
-      </b>
-        <p style="color:green"><b>$ ${listing.price} </b></p>
-    </div>
-  </div>
-  <form action="/listings/${listing.id}" method="GET">
-    <button type="submit">View</button>
-  </form>
+  return `<div class="listing">
+<div class="listing-content">
+  <img class="listing-image" src=${listing.image_url}></img><br>
+  <div><b class="listing-title">
+    ${listing.title}
+  </b>
+  <p><b class="price">$${listing.price}</b></p>
+</div>
+</div>
+<form action="/listings/${listing.id}" method="GET">
+<button type="submit">View</button>
+</form>
 </div>`;
 };
 
