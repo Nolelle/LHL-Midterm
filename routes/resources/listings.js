@@ -16,16 +16,6 @@ const queryGetAllListingsDataOrderByDate = function (db) {
   });
 };
 
-const queryGetAllListingsDataOrderByDateFilterByPage = function (db, id) {
-  let query = `SELECT *
-  FROM listings
-  WHERE id BETWEEN $1 AND $2
-  ORDER BY date_created DESC;`;
-  return db.query(query, [id * 6, id * 6 + 6]).then((response) => {
-    return response.rows;
-  });
-};
-
 const updateListingById = (db, id, body) => {
   let query = `UPDATE listings  SET
   title = $1,
@@ -221,7 +211,6 @@ module.exports = (db) => {
   });
 
   router.post("/:id/addFavourite", (req, res) => {
-    console.log("req is :", req.body);
     addFavouriteForListing(db, req.cookies.userID, req.params.id)
       .then(() => {
         console.log(
@@ -236,11 +225,13 @@ module.exports = (db) => {
       });
   });
 
-  router.get("/page/:id", (req, res) => {
-    console.log(req.params.id);
-    queryGetAllListingsDataOrderByDateFilterByPage(db, req.params.id)
-      .then((page) => {
-        res.json(page);
+  router.get("/page/:pageNumber", (req, res) => {
+    queryGetAllListingsDataOrderByDate(db)
+      .then((listings) => {
+        const LISTINGS_PER_PAGE = 6;
+        const startIndex = req.params.pageNumber * LISTINGS_PER_PAGE;
+        const endIndex = startIndex + LISTINGS_PER_PAGE;
+        res.json(listings.slice(startIndex, endIndex));
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
@@ -248,7 +239,6 @@ module.exports = (db) => {
   });
 
   router.post("/:id/removeFavourite", (req, res) => {
-    console.log("req is :", req.body);
     deleteFavouriteForListing(db, req.cookies.userID, req.params.id)
       .then(() => {
         console.log(

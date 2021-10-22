@@ -3,7 +3,6 @@
  */
 
 const express = require("express");
-const comments = require("../resources/comments");
 const router = express.Router();
 
 module.exports = (makeRequest) => {
@@ -16,7 +15,7 @@ module.exports = (makeRequest) => {
           orderedListings,
           emailCookie: req.cookies.email,
           userID: req.cookies.userID,
-          pageNumber: 1,
+          pageNumber: 0,
         };
         res.render("index", templateVars);
       })

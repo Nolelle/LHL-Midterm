@@ -11,45 +11,46 @@ const createListingElement = function (listing) {
   <form action="/listings/${listing.id}" method="GET">
     <button type="submit">View</button>
   </form>
-</div>`
-}
+</div>`;
+};
 
 $(() => {
   $(".next").on("click", function (event) {
     event.preventDefault();
-    let pageNumber = parseInt($("#pageNumber").text())
-    const url = `http://localhost:8080/api/listings/page/${pageNumber}`
+    let pageNumber = parseInt($("#pageNumber").text()) + 1;
+    const url = `http://localhost:8080/api/listings/page/${pageNumber}`;
+    console.log("next url", url);
     $.get(url)
       .then((listings) => {
-        $(".listings").empty()
+        $(".listings").empty();
 
-        for (let listing of listings){
-          const listingElement = createListingElement(listing)
-          $(".listings").append(listingElement)
+        for (let listing of listings) {
+          const listingElement = createListingElement(listing);
+          $(".listings").append(listingElement);
         }
-        $("#pageNumber").text(pageNumber + 1)
+        $("#pageNumber").text(pageNumber);
       })
       .catch((error) => {
-        console.log(error)
-      })
+        console.log(error);
+      });
   });
+
   $(".previous").on("click", function (event) {
     event.preventDefault();
     let pageNumber = parseInt($("#pageNumber").text()) - 1;
-    const url = `http://localhost:8080/api/listings/page/${pageNumber}`
+    const url = `http://localhost:8080/api/listings/page/${pageNumber}`;
+    console.log("previous url", url);
     $.get(url)
       .then((listings) => {
-        $(".listings").empty()
-        for (let listing of listings){
-          const listingElement = createListingElement(listing)
-          $(".listings").append(listingElement)
+        $(".listings").empty();
+        for (let listing of listings) {
+          const listingElement = createListingElement(listing);
+          $(".listings").append(listingElement);
         }
-        $("#pageNumber").text(pageNumber)
+        $("#pageNumber").text(pageNumber);
       })
       .catch((error) => {
-        console.log(error)
-      })
+        console.log(error);
+      });
   });
-
 });
-
