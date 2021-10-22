@@ -25,24 +25,6 @@
 
 ### Core User Stories
 
- <!-- * for page routes
- * /listings
- *   / -> show all lists
- *   /:id -> show id
- *   /create -> create form
- *   /update -> update form
- *   /delete -> delete form
- 
-
-
- * for API routes
- * resource: listings
- * GET listings -> list of listings
- * GET listing/:id -> one listing
- * POST listing -> create listing
- * PUT listing/:id -> updating listing
- * DELETE listing/:id -> deleting -->
-
 - Logged in User
 
   - As a user that is logged in, I can do everything that a logged out user is able to do.
@@ -65,8 +47,6 @@
 - As a user that is logged in, I can see my current postings on the site.
 - As a user that is logged in, I can search by categories
 - As a user that is logged in, we can delete my own comments.
-
-### ERD
 
 ### Routes
 
