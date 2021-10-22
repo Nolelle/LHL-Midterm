@@ -28,7 +28,8 @@ module.exports = (makeRequest) => {
   router.get("/search", (req, res) => {
     let templateVars = {
       emailCookie: req.cookies.email,
-      userID: req.cookies.userID
+      userID: req.cookies.userID,
+      pageNumber: 0
     };
     makeRequest(
       `http://localhost:8080/api/listings/search?title=${req.query.title}&minimum_price=${req.query.minimum_price}&maximum_price=&${req.query.maximum_price}condition=${req.query.condition}`
