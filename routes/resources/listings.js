@@ -17,6 +17,16 @@ const queryGetAllListingsDataOrderByDate = function (db) {
   });
 };
 
+const queryGetAllListingsDataOrderByDateFilterByPage = function (db,id) {
+  let query = `SELECT *
+  FROM listings
+  WHERE id BETWEEN $1 AND $2
+  ORDER BY date_created DESC;`;
+  return db.query(query, [id*6, id * 6 + 6]).then((response) => {
+    return response.rows;
+  });
+};
+
 
 const updateListingById = (db, id, body) => {
   let query = `UPDATE listings  SET
@@ -133,17 +143,8 @@ module.exports = (db) => {
       });
   });
 
-  router.get("/page", (req, res) => {
-    queryGetAllListingsDataOrderByDate(db, req.query)
-      .then((listings) => {
-        res.json(listings);
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
-  });
 
-  // GET /api/listing/:id render a page with just that posting, will show comments (if any) for that posting
+
   router.get("/:id", (req, res) => {
     queryGetListingsById(db, req.params.id)
       .then((listing) => {
@@ -154,7 +155,7 @@ module.exports = (db) => {
       });
   });
 
-  //POST /listings/id/edit
+
   router.post("/:id/edit", (req, res) => {
     updateListingById(db, req.params.id, req.body)
       .then(() => {
@@ -195,6 +196,16 @@ module.exports = (db) => {
       });
   });
 
+  router.get("/page/:id", (req, res) => {
+    console.log(req.params.id)
+    queryGetAllListingsDataOrderByDateFilterByPage(db, req.params.id)
+      .then((page) => {
+        res.json(page);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
 
   return router;
 };

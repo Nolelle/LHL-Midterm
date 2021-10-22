@@ -27,62 +27,80 @@
       type="text/javascript"
       src="/scripts/soldButtonOnClickHandler.js"
     ></script>
-    <script
-      type="text/javascript"
-      src="/scripts/commentHandler.js"
-    ></script>
+    <script type="text/javascript" src="/scripts/commentHandler.js"></script>
   </head>
   <body>
     <%- include('partials/nav-bar') %> <%- include('partials/leftSearchBar') %>
     <main style="margin: 1em">
-      <!-- Image -->
-      <img src="<%= listing.image_url%>" alt="" />
+      <!-- ******************************************** Image div ******************************************** -->
+      <div>
+        <img src="<%= listing.image_url%>" />
+      </div>
+      <!-- ******************************************** Image div end ******************************************** -->
 
+      <!-- ******************************************** button div's ******************************************** -->
+      <div>
+        <!-- check logged in -->
+        <!-- EJS here a bit clunky -->
+        <% if(userID){ %> <%if(listing.sold) { %>
+        <h3>This item is sold.</h3>
+        <button id="mark-as-available-button" class="btn btn-primary">
+          Mark As Available
+        </button>
+        <!-- user is logged out -->
+        <% } else { %>
+        <h3>This item is Available.</h3>
+        <button id="mark-as-sold-button" class="btn btn-primary">
+          Mark as sold
+        </button>
+        <button type="submit" class="btn btn-primary">Favourite</button>
+        <a
+          type="submit"
+          class="btn btn-primary"
+          href="http://localhost:8080/listings/<%=listing.id%>/edit"
+          >Edit</a
+        >
+        <button type="submit" class="btn btn-primary">Delete</button>
+        <% }} %>
+      </div>
+      <!-- ******************************************** button div's end ******************************************** -->
+
+      <!-- ******************************************** description div's ******************************************** -->
       <!-- this div contains the big box of information relative to the post -->
       <div class="description-box" style="background-color: aquamarine">
-        <!-- button divs -->
-        <div>
-          <% if(userID){ %> <%if(listing.sold) { %>
-
-          <h1>This item is sold.</h1>
-          <button id="mark-as-available-button" class="btn btn-primary">
-            Mark As Available
-          </button>
-
-          <% } else { %>
-
-          <button id="mark-as-sold-button" class="btn btn-primary">
-            Mark as sold
-          </button>
-          <h1>This item is Available.</h1>
-          <button type="submit" class="btn btn-primary">Favourite</button>
-          <a
-            type="submit"
-            class="btn btn-primary"
-            href="http://localhost:8080/listings/<%=listing.id%>/edit"
-            >Edit</a
-          >
-          <button type="submit" class="btn btn-primary">Delete</button>
-          <% } %> <% } %>
+        <!-- div for fb marketplace top -->
+        <div class="single-listing-title-container">
+          <h3><%= listing.title %></h3>
+          <div><%= listing.price %></div>
+          <div><%= listing.date_created %></div>
         </div>
-        <!-- button divs -->
-        <h3><%= listing.title %></h3>
-        <p><%= listing.description %></p>
-
-        <!-- div here for moving price/condition (paired together) -->
-        <div>
-          <p><%= listing.price %></p>
-          <p><%= listing.condition %></p>
+        <!-- details div -->
+        <div class="details-info-container">
+          <h3>Details</h3>
+          <!-- justify content space between -->
+          <div>condition:<%= listing.condition %></div>
+          <!-- description box -->
+          <div>description:<%= listing.description %></div>
+          <!-- stretch: add category as button that will search with params of category? (cool idea) -->
+          <div>category: <%= listing.categories%></div>
+        </div>
+        <!-- stretch: add Icon for user? -->
+        <div class="seller-info-container">
+          <h3>Seller Information</h3>
+          <div><%= listing.user_id %></div>
         </div>
       </div>
+      <!-- ******************************************** description div's end ******************************************** -->
 
+      <!-- ******************************************** comments div ******************************************** -->
       <!-- Div here for comments -->
       <h1><b>Comments</b></h1>
       <div id="comment-container">
         <% if (comments) { %> <% for (let comment of comments) { %>
         <div style="background-color: lightgray">
           <!-- userID stays in a div, Text in another -->
-          <p><%= comment["msg_text"] %></p>
+
+          <p><%= comment["msg_text"] %> user:<%= comment.user_id %></p>
         </div>
         <% } %> <% } %>
       </div>
@@ -101,6 +119,7 @@
           </div>
         </form>
       </div>
+      <!-- ******************************************** comments div end ******************************************** -->
     </main>
   </body>
 </html>
