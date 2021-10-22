@@ -137,6 +137,16 @@ const deleteFavouriteForListing = (db, userID, listingID) => {
   });
 };
 
+const deleteListing = (db, listingID) => {
+  let query = `
+  DELETE FROM listings
+  WHERE id = $1
+  `;
+  return db.query(query, [listingID]).then((response) => {
+    return response;
+  });
+};
+
 // ***********************************QUERIES **************************************
 module.exports = (db) => {
   // GET api/listings/
@@ -247,6 +257,17 @@ module.exports = (db) => {
         res.send(
           `Removed listing id${req.body.listingID} favourites table for user ${req.params.id}.`
         );
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
+
+  router.delete("/:id", (req, res) => {
+    deleteListing(db, req.params.id)
+      .then(() => {
+        console.log(`Removed listing id ${req.params.id}.`);
+        res.send(`Removed listing id ${req.params.id}.`);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
