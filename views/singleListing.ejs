@@ -36,7 +36,7 @@
         <div>
           <!-- check logged in -->
           <!-- EJS here a bit clunky -->
-          <% if(userID){ %>
+          <% if(userID && parseInt(userID)===listing.user_id){ %>
             <%if(listing.sold) { %>
               <h3>This item is sold.</h3>
               <button id="mark-as-available-button" class="btn btn-primary">

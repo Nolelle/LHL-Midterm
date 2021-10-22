@@ -39,6 +39,7 @@ module.exports = (makeRequest) => {
     };
     // req dosent know serverhost (localhost) automatically, so its hard coded into this request
     // TODO: add server host and port to .env file
+    console.log("Before requests");
     makeRequest(`http://localhost:8080/api/comments?listingID=${req.params.id}`)
       .then((comments) => {
         templateVars["comments"] = JSON.parse(comments);
