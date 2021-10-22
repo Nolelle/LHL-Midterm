@@ -56,15 +56,31 @@ module.exports = (makeRequest) => {
     makeRequest(`http://localhost:8080/api/comments?listingID=${req.params.id}`)
       .then((comments) => {
         templateVars["comments"] = JSON.parse(comments);
-        makeRequest(`http://localhost:8080/api/listings/${req.params.id}`)
-          .then((listing) => {
-            console.log("in templates listing", JSON.parse(listing));
+        makeRequest(`http://localhost:8080/api/listings/${req.params.id}`).then(
+          (listing) => {
+            // console.log("in templates listing", JSON.parse(listing));
             templateVars["listing"] = JSON.parse(listing);
-            res.render("singleListing", templateVars);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+            makeRequest(
+              `http://localhost:8080/api/favourites/users/${req.cookies.userID}`
+            )
+              .then((favourites) => {
+                let parsedFavourites = JSON.parse(favourites);
+                let isFavourite = false;
+                for (let favourite of parsedFavourites) {
+                  if (favourite.listing_id === parseInt(req.params.id)) {
+                    isFavourite = true;
+                  }
+                }
+
+                templateVars["isFavourite"] = isFavourite;
+
+                res.render("singleListing", templateVars);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }
+        );
       })
       .catch((error) => {
         console.log(error);

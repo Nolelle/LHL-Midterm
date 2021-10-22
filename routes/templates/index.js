@@ -16,7 +16,7 @@ module.exports = (makeRequest) => {
           orderedListings,
           emailCookie: req.cookies.email,
           userID: req.cookies.userID,
-          pageNumber: 1
+          pageNumber: 1,
         };
         res.render("index", templateVars);
       })
@@ -29,13 +29,13 @@ module.exports = (makeRequest) => {
     let templateVars = {
       emailCookie: req.cookies.email,
       userID: req.cookies.userID,
-      pageNumber: 0
+      pageNumber: 0,
     };
     makeRequest(
       `http://localhost:8080/api/listings/search?title=${req.query.title}&minimum_price=${req.query.minimum_price}&maximum_price=&${req.query.maximum_price}condition=${req.query.condition}`
     )
       .then((listings) => {
-        console.log(listings)
+        console.log(listings);
         templateVars["orderedListings"] = JSON.parse(listings);
         res.render("index", templateVars);
       })
@@ -50,7 +50,7 @@ module.exports = (makeRequest) => {
         const templateVars = {
           orderedListings,
           emailCookie: req.cookies.email,
-          userID: req.cookies.userID
+          userID: req.cookies.userID,
         };
         res.render("index", templateVars);
       })
@@ -63,7 +63,7 @@ module.exports = (makeRequest) => {
   router.get("/previouspage", (req, res) => {
     let templateVars = {
       emailCookie: req.cookies.email,
-      userID: req.cookies.userID
+      userID: req.cookies.userID,
     };
     makeRequest()
       .then((listings) => {

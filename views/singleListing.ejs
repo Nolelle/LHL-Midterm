@@ -1,125 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Single Listing</title>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-      integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
-      integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <script
-      type="text/javascript"
-      src="/scripts/soldButtonOnClickHandler.js"
-    ></script>
-    <script type="text/javascript" src="/scripts/commentHandler.js"></script>
-  </head>
-  <body>
-    <%- include('partials/nav-bar') %> <%- include('partials/leftSearchBar') %>
-    <main style="margin: 1em">
-      <!-- ******************************************** Image div ******************************************** -->
-      <div>
-        <img src="<%= listing.image_url%>" />
-      </div>
-      <!-- ******************************************** Image div end ******************************************** -->
+<head>
+  <title>Single Listing</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-      <!-- ******************************************** button div's ******************************************** -->
-      <div>
-        <!-- check logged in -->
-        <!-- EJS here a bit clunky -->
-        <% if(userID){ %> <%if(listing.sold) { %>
-        <h3>This item is sold.</h3>
-        <button id="mark-as-available-button" class="btn btn-primary">
-          Mark As Available
-        </button>
-        <!-- user is logged out -->
-        <% } else { %>
-        <h3>This item is Available.</h3>
-        <button id="mark-as-sold-button" class="btn btn-primary">
-          Mark as sold
-        </button>
-        <button type="submit" class="btn btn-primary">Favourite</button>
-        <a
-          type="submit"
-          class="btn btn-primary"
-          href="http://localhost:8080/listings/<%=listing.id%>/edit"
-          >Edit</a
-        >
-        <button type="submit" class="btn btn-primary">Delete</button>
-        <% }} %>
-      </div>
-      <!-- ******************************************** button div's end ******************************************** -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous" />
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+    integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript" src="/scripts/soldButtonOnClickHandler.js"></script>
+  <script type="text/javascript" src="/scripts/commentHandler.js"></script>
+  <script type="text/javascript" src="/scripts/favouriteButtonOnClickHandler.js"></script>
 
-      <!-- ******************************************** description div's ******************************************** -->
-      <!-- this div contains the big box of information relative to the post -->
-      <div class="description-box" style="background-color: aquamarine">
-        <!-- div for fb marketplace top -->
-        <div class="single-listing-title-container">
-          <h3><%= listing.title %></h3>
-          <div><%= listing.price %></div>
-          <div><%= listing.date_created %></div>
+</head>
+
+<body>
+  <%- include('partials/nav-bar') %>
+    <%- include('partials/leftSearchBar') %>
+      <main style="margin: 1em">
+        <!-- ******************************************** Image div ******************************************** -->
+        <div>
+          <img src="<%= listing.image_url%>" />
         </div>
-        <!-- details div -->
-        <div class="details-info-container">
-          <h3>Details</h3>
-          <!-- justify content space between -->
-          <div>condition:<%= listing.condition %></div>
-          <!-- description box -->
-          <div>description:<%= listing.description %></div>
-          <!-- stretch: add category as button that will search with params of category? (cool idea) -->
-          <div>category: <%= listing.categories%></div>
-        </div>
-        <!-- stretch: add Icon for user? -->
-        <div class="seller-info-container">
-          <h3>Seller Information</h3>
-          <div><%= listing.user_id %></div>
-        </div>
-      </div>
-      <!-- ******************************************** description div's end ******************************************** -->
+        <!-- ******************************************** Image div end ******************************************** -->
 
-      <!-- ******************************************** comments div ******************************************** -->
-      <!-- Div here for comments -->
-      <h1><b>Comments</b></h1>
-      <div id="comment-container">
-        <% if (comments) { %> <% for (let comment of comments) { %>
-        <div style="background-color: lightgray">
-          <!-- userID stays in a div, Text in another -->
+        <!-- ******************************************** button div's ******************************************** -->
+        <div>
+          <!-- check logged in -->
+          <!-- EJS here a bit clunky -->
+          <% if(userID){ %>
+            <%if(listing.sold) { %>
+              <h3>This item is sold.</h3>
+              <button id="mark-as-available-button" class="btn btn-primary">
+                Mark As Available
+              </button>
+              <!-- user is logged out -->
+              <% } else { %>
+                <h3>This item is Available.</h3>
+                <button id="mark-as-sold-button" class="btn btn-primary">
+                  Mark as sold
+                </button>
+                <% } %>
+                  <%if(!isFavourite) {%>
+                    <button id='add-favourite-button' class="btn btn-primary">
+                      Set as Favourite</button>
+                    <% } else { %>
+                      <button id='remove-favourite-button' class="btn btn-primary">
+                        Remove Favourite</button>
+                      <% } %>
+                        <% } %>
+                          <a type="submit" class="btn btn-primary"
+                            href="http://localhost:8080/listings/<%=listing.id%>/edit">Edit</a>
+                          <button type="submit" class="btn btn-primary">Delete</button>
 
-          <p><%= comment["msg_text"] %> user:<%= comment.user_id %></p>
+
         </div>
-        <% } %> <% } %>
-      </div>
-      <div class="comment-box-container" style="background-color: lightpink">
-        <!-- <section class="new-tweet"> Maybe change all colored area into sections? -->
-        <form
-          id="comment-form"
-          method="POST"
-          action="/api/comments/<%= listing.id %>"
-        >
-          <div class="text-input-container">
-            <textarea name="msg_text" placeholder="Negotiate Here"></textarea>
+
+        <!-- ******************************************** description div's ******************************************** -->
+        <!-- this div contains the big box of information relative to the post -->
+        <div class="description-box" style="background-color: aquamarine">
+          <!-- div for fb marketplace top -->
+          <div class="single-listing-title-container">
+            <h3>
+              <%= listing.title %>
+            </h3>
+            <div>
+              <%= listing.price %>
+            </div>
+            <div>
+              <%= listing.date_created %>
+            </div>
           </div>
-          <div class="submit-container">
-            <button type="submit">Comment</button>
+          <!-- details div -->
+          <div class="details-info-container">
+            <h3>Details</h3>
+            <!-- justify content space between -->
+            <div>condition:<%= listing.condition %>
+            </div>
+            <!-- description box -->
+            <div>description:<%= listing.description %>
+            </div>
+            <!-- stretch: add category as button that will search with params of category? (cool idea) -->
+            <div>category: <%= listing.categories%>
+            </div>
           </div>
-        </form>
-      </div>
-      <!-- ******************************************** comments div end ******************************************** -->
-    </main>
-  </body>
+          <!-- stretch: add Icon for user? -->
+          <div class="seller-info-container">
+            <h3>Seller Information</h3>
+            <div>
+              <%= listing.user_id %>
+            </div>
+          </div>
+        </div>
+        <!-- ******************************************** description div's end ******************************************** -->
+
+        <!-- ******************************************** comments div ******************************************** -->
+        <!-- Div here for comments -->
+        <h1><b>Comments</b></h1>
+        <div id="comment-container">
+          <% if (comments) { %>
+            <% for (let comment of comments) { %>
+              <div style="background-color: lightgray">
+                <!-- userID stays in a div, Text in another -->
+
+                <p>
+                  <%= comment["msg_text"] %> user:<%= comment.user_id %>
+                </p>
+              </div>
+              <% } %>
+                <% } %>
+        </div>
+        <div class="comment-box-container" style="background-color: lightpink">
+          <!-- <section class="new-tweet"> Maybe change all colored area into sections? -->
+          <form id="comment-form" method="POST" action="/api/comments/<%= listing.id %>">
+            <div class="text-input-container">
+              <textarea name="msg_text" placeholder="Negotiate Here"></textarea>
+            </div>
+            <div class="submit-container">
+              <button type="submit">Comment</button>
+            </div>
+          </form>
+        </div>
+        <!-- ******************************************** comments div end ******************************************** -->
+      </main>
+</body>
+
 </html>

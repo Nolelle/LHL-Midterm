@@ -9,7 +9,6 @@ const queryGetListingsById = function (db, id) {
   });
 };
 
-
 const queryGetAllListingsDataOrderByDate = function (db) {
   let query = `SELECT * FROM listings ORDER BY date_created DESC;`;
   return db.query(query).then((response) => {
@@ -17,16 +16,15 @@ const queryGetAllListingsDataOrderByDate = function (db) {
   });
 };
 
-const queryGetAllListingsDataOrderByDateFilterByPage = function (db,id) {
+const queryGetAllListingsDataOrderByDateFilterByPage = function (db, id) {
   let query = `SELECT *
   FROM listings
   WHERE id BETWEEN $1 AND $2
   ORDER BY date_created DESC;`;
-  return db.query(query, [id*6, id * 6 + 6]).then((response) => {
+  return db.query(query, [id * 6, id * 6 + 6]).then((response) => {
     return response.rows;
   });
 };
-
 
 const updateListingById = (db, id, body) => {
   let query = `UPDATE listings  SET
@@ -57,7 +55,8 @@ const addNewListing = (db, body, userIDcookie) => {
   let query = `INSERT INTO listings (user_id,title,image_url,condition,price,description,categories,date_created,sold,active)
   VALUES ($1,$2,$3,$4,$5,$6,$7,to_timestamp($8),$9,$10)`;
 
-  return db.query(query, [
+  return db
+    .query(query, [
       userIDcookie,
       body.title,
       body.image_url,
@@ -73,7 +72,6 @@ const addNewListing = (db, body, userIDcookie) => {
       return response.rows;
     });
 };
-
 
 const queryGetListingsBySearchParams = function (db, searchParams) {
   return queryGetAllListingsDataOrderByDate(db).then((listings) => {
@@ -119,6 +117,25 @@ const updateSoldForListing = (db, id, sold) => {
   });
 };
 
+const addFavouriteForListing = (db, userID, listingID) => {
+  let query = `
+  INSERT INTO favourites (user_id,listing_id)
+  VALUES ($1,$2)
+  `;
+  return db.query(query, [userID, listingID]).then((response) => {
+    return response.rows;
+  });
+};
+
+const deleteFavouriteForListing = (db, userID, listingID) => {
+  let query = `
+  DELETE FROM favourites
+  WHERE user_id = $1 AND listing_id = $2
+  `;
+  return db.query(query, [userID, listingID]).then((response) => {
+    return response;
+  });
+};
 
 // ***********************************QUERIES **************************************
 module.exports = (db) => {
@@ -143,8 +160,6 @@ module.exports = (db) => {
       });
   });
 
-
-
   router.get("/:id", (req, res) => {
     queryGetListingsById(db, req.params.id)
       .then((listing) => {
@@ -154,7 +169,6 @@ module.exports = (db) => {
         res.status(500).json({ error: err.message });
       });
   });
-
 
   router.post("/:id/edit", (req, res) => {
     updateListingById(db, req.params.id, req.body)
@@ -189,7 +203,23 @@ module.exports = (db) => {
   router.post("/new", (req, res) => {
     addNewListing(db, req.body, req.cookies.userID)
       .then(() => {
-        res.redirect("/")
+        res.redirect("/");
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
+
+  router.post("/:id/addFavourite", (req, res) => {
+    console.log("req is :", req.body);
+    addFavouriteForListing(db, req.cookies.userID, req.params.id)
+      .then(() => {
+        console.log(
+          `Added listing id ${req.body.listingID} to favourites table for user ${req.params.id}.`
+        );
+        res.send(
+          `Added listing id ${req.body.listingID} to favourites table for user ${req.params.id}.`
+        );
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
@@ -197,10 +227,26 @@ module.exports = (db) => {
   });
 
   router.get("/page/:id", (req, res) => {
-    console.log(req.params.id)
+    console.log(req.params.id);
     queryGetAllListingsDataOrderByDateFilterByPage(db, req.params.id)
       .then((page) => {
         res.json(page);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
+
+  router.post("/:id/removeFavourite", (req, res) => {
+    console.log("req is :", req.body);
+    deleteFavouriteForListing(db, req.cookies.userID, req.params.id)
+      .then(() => {
+        console.log(
+          `Removed listing id ${req.body.listingID} favourites table for user ${req.params.id}.`
+        );
+        res.send(
+          `Removed listing id${req.body.listingID} favourites table for user ${req.params.id}.`
+        );
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });

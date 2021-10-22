@@ -10,22 +10,45 @@ const queryGetFavListingsByUserID = function (db, userID) {
   FROM favourites
   JOIN listings ON favourites.listing_id = listings.id
   WHERE listings.user_id = $1`;
-  return db.query(query, [1]).then((response) => {
+  return db.query(query, [userID]).then((response) => {
+    return response.rows;
+  });
+};
+
+const queryGetAllUserIDFavourites = function (db, userID) {
+  let query = `
+  SELECT *
+  FROM favourites
+  WHERE user_id = $1
+ `;
+  return db.query(query, [userID]).then((response) => {
     return response.rows;
   });
 };
 
 module.exports = (db) => {
-  //GET /api/favourites
-  router.get("/", (req, res) => {
-    queryGetFavListingsByUserID(db, req.query.userID)
-      .then((favouriteRows) => {
-        res.json(favouriteRows);
+  //GET /api/favourites/:id
+  router.get("/:id", (req, res) => {
+    queryGetFavListingsByUserID(db, req.params.id)
+      .then((userFavouriteListings) => {
+        res.json(userFavouriteListings);
       })
       .catch((error) => {
         console.log(error);
         res.send(error);
       });
   });
+
+  router.get("/users/:id", (req, res) => {
+    queryGetAllUserIDFavourites(db, req.params.id)
+      .then((userFavourites) => {
+        res.json(userFavourites);
+      })
+      .catch((error) => {
+        console.log(error);
+        res.send(error);
+      });
+  });
+
   return router;
 };
