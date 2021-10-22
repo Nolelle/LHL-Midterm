@@ -171,6 +171,10 @@ module.exports = (db) => {
   });
 
   router.post("/:id/edit", (req, res) => {
+    if (!req.cookies.userID) {
+      res.status(403).send("No userID present");
+      return;
+    }
     updateListingById(db, req.params.id, req.body)
       .then(() => {
         res.redirect(`/listings/${req.params.id}`);
@@ -181,6 +185,10 @@ module.exports = (db) => {
   });
 
   router.post("/new", (req, res) => {
+    if (!req.cookies.userID) {
+      res.status(403).send("No userID present");
+      return;
+    }
     addNewListing(db, req.body, req.cookies.userID)
       .then(() => {
         res.redirect("/");
@@ -191,6 +199,10 @@ module.exports = (db) => {
   });
 
   router.post("/:id/setSold", (req, res) => {
+    if (!req.cookies.userID) {
+      res.status(403).send("No userID present");
+      return;
+    }
     updateSoldForListing(db, req.params.id, req.body.sold)
       .then(() => {
         res.send(`Set sold to ${req.body.sold} for listing ${req.params.id}`);
@@ -200,17 +212,11 @@ module.exports = (db) => {
       });
   });
 
-  router.post("/new", (req, res) => {
-    addNewListing(db, req.body, req.cookies.userID)
-      .then(() => {
-        res.redirect("/");
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
-  });
-
   router.post("/:id/addFavourite", (req, res) => {
+    if (!req.cookies.userID) {
+      res.status(403).send("No userID present");
+      return;
+    }
     addFavouriteForListing(db, req.cookies.userID, req.params.id)
       .then(() => {
         console.log(
@@ -239,6 +245,10 @@ module.exports = (db) => {
   });
 
   router.post("/:id/removeFavourite", (req, res) => {
+    if (!req.cookies.userID) {
+      res.status(403).send("No userID present");
+      return;
+    }
     deleteFavouriteForListing(db, req.cookies.userID, req.params.id)
       .then(() => {
         console.log(
@@ -254,6 +264,10 @@ module.exports = (db) => {
   });
 
   router.delete("/:id", (req, res) => {
+    if (!req.cookies.userID) {
+      res.status(403).send("No userID present");
+      return;
+    }
     deleteListing(db, req.params.id)
       .then(() => {
         console.log(`Removed listing id ${req.params.id}.`);
