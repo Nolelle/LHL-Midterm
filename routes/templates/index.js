@@ -32,7 +32,7 @@ module.exports = (makeRequest) => {
       pageNumber: 0,
     };
     makeRequest(
-      `http://localhost:8080/api/listings/search?title=${req.query.title}&minimum_price=${req.query.minimum_price}&maximum_price=&${req.query.maximum_price}condition=${req.query.condition}`
+      `http://localhost:8080/api/listings/search?title=${req.query.title}&minimum_price=${req.query.minimum_price}&maximum_price=${req.query.maximum_price}&condition=${req.query.condition}`
     )
       .then((listings) => {
         console.log(listings);
