@@ -21,59 +21,59 @@
     <main style="margin: 1em">
       <form class="create-post-form" action="/api/listings/<%=listing.id%>/edit" method="post">
 
-          <!-- Title -->
-          <div class="create-post-div">
-            <label for="title">Title</label>
-            <input name="title" type="text" placeholder=<%=listing.title %>></input>
-          </div>
+        <!-- Title -->
+        <div class="create-post-div">
+          <label for="title">Title</label>
+          <input name="title" type="text" placeholder=<%=listing.title %>></input>
+        </div>
 
-          <!-- Price -->
-          <div class="create-post-div">
-            <label for="price">Price</label>
-            <input name="price" type="number" placeholder=<%=listing.price %>></input>
-          </div>
+        <!-- Price -->
+        <div class="create-post-div">
+          <label for="price">Price</label>
+          <input name="price" type="number" placeholder=<%=listing.price %>></input>
+        </div>
 
-          <!-- Description -->
-          <div class="create-post-div">
-            <label for="description">Description</label>
-            <input name="description" type="text" placeholder=<%=listing.description %>></input>
-          </div>
+        <!-- Description -->
+        <div class="create-post-div">
+          <label for="description">Description</label>
+          <input name="description" type="text" placeholder=<%=listing.description %>></input>
+        </div>
 
-          <!-- image -->
-          <div class="create-post-div">
-            <label for="image">Image</label>
-            <input name="image_url" type="text" placeholder="Post an image URL" />
-          </div>
-          <!-- Condition -->
-          <div class="create-post-div">
-            <label for="conditions">Condition</label>
-            <select name="condition">
-              <option>N/A</option>
-              <option>Poor</option>
-              <option>Good/Fair</option>
-              <option>Excellent</option>
-              <option>Near Mint</option>
-            </select>
-          </div>
+        <!-- image -->
+        <div class="create-post-div">
+          <label for="image">Image</label>
+          <input name="image_url" type="text" placeholder="Post an image URL" />
+        </div>
+        <!-- Condition -->
+        <div class="create-post-div">
+          <label for="conditions">Condition</label>
+          <select name="condition">
+            <option>N/A</option>
+            <option>Poor</option>
+            <option>Good/Fair</option>
+            <option>Excellent</option>
+            <option>Near Mint</option>
+          </select>
+        </div>
 
 
-          <!-- category -->
-          <!-- check out the select option docs (has value associated with option) -->
-          <div class="create-post-div">
-            <label for="category">Category</label>
-            <select name="categories">
-              <option>FREE</option>
-              <option>Vehicles</option>
-              <option>Electronics</option>
-              <option>Sports Goods</option>
-              <option>Family</option>
-              <option>Apparel</option>
-              <option>Office Supplies</option>
-              <option>Home and Garden</option>
-              <option>Music & Instruments</option>
-              <option>Toys & Games</option>
-            </select>
-          </div>
+        <!-- category -->
+        <!-- check out the select option docs (has value associated with option) -->
+        <div class="create-post-div">
+          <label for="category">Category</label>
+          <select name="categories">
+            <option>FREE</option>
+            <option>Vehicles</option>
+            <option>Electronics</option>
+            <option>Sports Goods</option>
+            <option>Family</option>
+            <option>Apparel</option>
+            <option>Office Supplies</option>
+            <option>Home and Garden</option>
+            <option>Music & Instruments</option>
+            <option>Toys & Games</option>
+          </select>
+        </div>
         <button type="submit" class="btn btn-primary create-post-button">Submit</button>
       </form>
     </main>

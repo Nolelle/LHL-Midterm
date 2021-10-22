@@ -11,7 +11,7 @@ const router = express.Router();
 const queryCheckInputEmailForUserID = function (db, email) {
   let query = `SELECT * FROM users WHERE users.email = $1`;
   return db.query(query, [email]).then((response) => {
-    return response.rows[0]
+    return response.rows[0];
   });
 };
 
@@ -23,7 +23,6 @@ const queryUsers = (db) => {
 };
 
 module.exports = (db) => {
-  //GET api/users
   router.get("/", (req, res) => {
     queryUsers(db)
       .then((users) => {
@@ -36,9 +35,9 @@ module.exports = (db) => {
   router.post("/login", (req, res) => {
     queryCheckInputEmailForUserID(db, req.body.email)
       .then((userID) => {
-        res.cookie("userID", userID.id)
-        res.cookie("email", userID.email)
-        res.redirect("/")
+        res.cookie("userID", userID.id);
+        res.cookie("email", userID.email);
+        res.redirect("/");
       })
       .catch((error) => {
         console.log(error);

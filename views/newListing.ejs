@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>New Listing</title>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="../styles/main.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
-  </head>
 
-  <body>
-    <%- include('partials/nav-bar') %>
+<head>
+  <title>New Listing</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="../styles/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+  <script type="text/javascript" src="/scripts/app.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+    integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <%- include('partials/nav-bar') %>
     <main style="margin: 1em">
       <form class="create-post-form" action="/api/listings/new" method="POST">
         <!-- Title -->
         <div class="create-post-div">
           <label for="title">Title</label>
-          <input  name="title" type="text" placeholder="What are you selling?" />
+          <input name="title" type="text" placeholder="What are you selling?" />
         </div>
 
         <!-- Price -->
@@ -72,5 +76,6 @@
         <button type="submit" class="btn btn-primary create-post-button">Submit</button>
       </form>
     </main>
-  </body>
+</body>
+
 </html>

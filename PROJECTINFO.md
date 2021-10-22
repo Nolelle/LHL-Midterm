@@ -1,4 +1,4 @@
-# Project: Buy/Sell Listing Website
+# Project: Anomolacorus Website
 
 ## Schedule
 
@@ -25,24 +25,6 @@
 
 ### Core User Stories
 
- <!-- * for page routes
- * /listings
- *   / -> show all lists
- *   /:id -> show id
- *   /create -> create form
- *   /update -> update form
- *   /delete -> delete form
- 
-
-
- * for API routes
- * resource: listings
- * GET listings -> list of listings
- * GET listing/:id -> one listing
- * POST listing -> create listing
- * PUT listing/:id -> updating listing
- * DELETE listing/:id -> deleting -->
-
 - Logged in User
 
   - As a user that is logged in, I can do everything that a logged out user is able to do.
@@ -65,8 +47,6 @@
 - As a user that is logged in, I can see my current postings on the site.
 - As a user that is logged in, I can search by categories
 - As a user that is logged in, we can delete my own comments.
-
-### ERD
 
 ### Routes
 
@@ -91,5 +71,3 @@
   - POST /listing/:listingid/comments (a button to create create a new comment, in the comments section under a listing) -- Check with mentor
   - POST /listings (post new created posting to posting table, and then redirect to /)
   - PATCH /listings/:listingsid (verify: sessionid is in browser so we check for that to ensure a user is can only edit there own listing)
-
-### Wireframes

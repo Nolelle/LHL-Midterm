@@ -16,12 +16,8 @@ const queryGetCommentsByListingID = function (db, listingID) {
 const addNewComment = function (db, listing_id, msg_text, userIDcookie) {
   let query = `INSERT INTO comments (user_id,listing_id,msg_text,date_created)
   VALUES ($1,$2,$3,to_timestamp($4)) returning *`;
-  return db.query(query, [
-    userIDcookie,
-    listing_id,
-    msg_text,
-    Date.now() / 1000
-  ])
+  return db
+    .query(query, [userIDcookie, listing_id, msg_text, Date.now() / 1000])
     .then((response) => {
       return response.rows[0];
     });
@@ -39,10 +35,9 @@ module.exports = (db) => {
       });
   });
   router.post("/:id", (req, res) => {
-    console.log("req.body : ", req.body)
     addNewComment(db, req.params.id, req.body.msg_text, req.cookies.userID)
       .then((comments) => {
-        res.json(comments)
+        res.json(comments);
       })
       .catch((error) => {
         console.log(error);

@@ -6,12 +6,10 @@ const express = require("express");
 const router = express.Router();
 
 module.exports = (makeRequest) => {
-  //GET /
   router.get("/", (req, res) => {
     makeRequest(`http://localhost:8080/api/listings/page/0`)
       .then((data) => {
         const orderedListings = JSON.parse(data);
-        // TODO: IMPLEMENT PAGE STATUS BY setting a page cookie
         const templateVars = {
           orderedListings,
           emailCookie: req.cookies.email,
@@ -35,7 +33,6 @@ module.exports = (makeRequest) => {
       `http://localhost:8080/api/listings/search?title=${req.query.title}&minimum_price=${req.query.minimum_price}&maximum_price=${req.query.maximum_price}&condition=${req.query.condition}`
     )
       .then((listings) => {
-        console.log(listings);
         templateVars["orderedListings"] = JSON.parse(listings);
         res.render("index", templateVars);
       })
@@ -59,7 +56,6 @@ module.exports = (makeRequest) => {
       });
   });
 
-  //TODO!!!!
   router.get("/previouspage", (req, res) => {
     let templateVars = {
       emailCookie: req.cookies.email,

@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-// ***********************************QUERIES **************************************
 const queryGetListingsById = function (db, id) {
   let query = `SELECT * FROM listings where id = $1 ORDER BY date_created DESC;`;
   return db.query(query, [id]).then((response) => {
@@ -137,9 +136,7 @@ const deleteListing = (db, listingID) => {
   });
 };
 
-// ***********************************QUERIES **************************************
 module.exports = (db) => {
-  // GET api/listings/
   router.get("/", (req, res) => {
     queryGetAllListingsDataOrderByDate(db)
       .then((listings) => {
