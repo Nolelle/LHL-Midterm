@@ -17,6 +17,8 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script type="text/javascript" src="/scripts/soldButtonOnClickHandler.js"></script>
   <script type="text/javascript" src="/scripts/commentHandler.js"></script>
+  <script type="text/javascript" src="/scripts/favouriteButtonOnClickHandler.js"></script>
+
 </head>
 
 <body>
@@ -45,13 +47,21 @@
                 <button id="mark-as-sold-button" class="btn btn-primary">
                   Mark as sold
                 </button>
-                <button type="submit" class="btn btn-primary">Favourite</button>
-                <a type="submit" class="btn btn-primary"
-                  href="http://localhost:8080/listings/<%=listing.id%>/edit">Edit</a>
-                <button type="submit" class="btn btn-primary">Delete</button>
-                <% }} %>
+                <% } %>
+                  <%if(!isFavourite) {%>
+                    <button id='add-favourite-button' class="btn btn-primary">
+                      Set as Favourite</button>
+                    <% } else { %>
+                      <button id='remove-favourite-button' class="btn btn-primary">
+                        Remove Favourite</button>
+                      <% } %>
+                        <% } %>
+                          <a type="submit" class="btn btn-primary"
+                            href="http://localhost:8080/listings/<%=listing.id%>/edit">Edit</a>
+                          <button type="submit" class="btn btn-primary">Delete</button>
+
+
         </div>
-        <!-- ******************************************** button div's end ******************************************** -->
 
         <!-- ******************************************** description div's ******************************************** -->
         <!-- this div contains the big box of information relative to the post -->

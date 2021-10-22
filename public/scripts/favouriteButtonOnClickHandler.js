@@ -1,31 +1,30 @@
 //document ready function
 $(() => {
-  const url = window.location.pathname;
-  const id = url.substring(url.lastIndexOf("/") + 1);
+  const windowURL = window.location.pathname;
+  const listingID = windowURL.substring(windowURL.lastIndexOf("/") + 1);
 
   $("#remove-favourite-button").on("click", function (event) {
     event.preventDefault();
-    const url = `/api/favourites/${}/removeFavourite`;
-    const data = { id: null };
-
-    $.post(url, data)
+    const url = `/api/listings/${listingID}/removeFavourite`;
+    // const data = {};
+    $.post(url)
       .then(() => {
-        $(location).attr("href", url);
+        $(location).attr("href", windowURL);
       })
-      .catch((error) > {
-        console.log(error)
+      .catch((error) => {
+        console.log(error);
       });
   });
 
   $("#add-favourite-button").on("click", function (event) {
     event.preventDefault();
-    const url = `/api/favourites/${}/removeFavourite`;
-    const data = {  };
-    $.post(url, data)
+    const url = `/api/listings/${listingID}/addFavourite`;
+    $.post(url)
       .then(() => {
-        $(location).attr("href", url);
+        $(location).attr("href", windowURL);
       })
-      .catch((error) > {
-        console.log(error)
+      .catch((error) => {
+        console.log(error);
       });
+  });
 });

@@ -1,80 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Edit Listing</title>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
-  </head>
 
-  <body>
-    <%- include('partials/nav-bar') %>
+<head>
+  <title>Edit Listing</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+  <script type="text/javascript" src="/scripts/app.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+    integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <%- include('partials/nav-bar') %>
     <main style="margin: 1em">
       <form action="/api/listings/<%=listing.id%>/edit" method="post">
         <div>
         </div>
 
         <div>
-        <!-- Title -->
-        <div>
-          <label for="title">Title</label>
-          <input name="title" placeholder=<%= listing.title %>></input><br>
-        </div>
+          <!-- Title -->
+          <div>
+            <label for="title">Title</label>
+            <input name="title" placeholder=<%=listing.title %>></input><br>
+          </div>
 
-        <!-- Price -->
-        <div>
-          <label for="price">Price</label>
-          <input name="price" placeholder=<%= listing.price %>></input><br>
-        </div>
+          <!-- Price -->
+          <div>
+            <label for="price">Price</label>
+            <input name="price" placeholder=<%=listing.price %>></input><br>
+          </div>
 
-        <!-- Description -->
-        <div>
-          <label for="description">Description</label>
-          <input name="description" placeholder=<%= listing.description %>></input><br>
-        </div>
+          <!-- Description -->
+          <div>
+            <label for="description">Description</label>
+            <input name="description" placeholder=<%=listing.description %>></input><br>
+          </div>
 
-        <!-- Condition -->
-        <div>
-          <label for="conditions">Condition</label>
-          <select name="condition">
-            <option>N/A</option>
-            <option>Poor</option>
-            <option>Good/Fair</option>
-            <option>Excellent</option>
-            <option>Near Mint</option>
-          </select>
-        </div>
+          <!-- Condition -->
+          <div>
+            <label for="conditions">Condition</label>
+            <select name="condition">
+              <option>N/A</option>
+              <option>Poor</option>
+              <option>Good/Fair</option>
+              <option>Excellent</option>
+              <option>Near Mint</option>
+            </select>
+          </div>
 
-        <!-- image -->
-        <div>
-          <label for="image">Image</label>
-          <input name="image_url" type="text" placeholder="Post an image URL" />
-        </div>
+          <!-- image -->
+          <div>
+            <label for="image">Image</label>
+            <input name="image_url" type="text" placeholder="Post an image URL" />
+          </div>
 
-        <!-- category -->
-        <!-- check out the select option docs (has value associated with option) -->
-        <div>
-          <label for="category">Category</label>
-          <select name="categories">
-            <option>FREE</option>
-            <option>Vehicles</option>
-            <option>Electronics</option>
-            <option>Sports Goods</option>
-            <option>Family</option>
-            <option>Apparel</option>
-            <option>Office Supplies</option>
-            <option>Home and Garden</option>
-            <option>Music & Instruments</option>
-            <option>Toys & Games</option>
-          </select>
+          <!-- category -->
+          <!-- check out the select option docs (has value associated with option) -->
+          <div>
+            <label for="category">Category</label>
+            <select name="categories">
+              <option>FREE</option>
+              <option>Vehicles</option>
+              <option>Electronics</option>
+              <option>Sports Goods</option>
+              <option>Family</option>
+              <option>Apparel</option>
+              <option>Office Supplies</option>
+              <option>Home and Garden</option>
+              <option>Music & Instruments</option>
+              <option>Toys & Games</option>
+            </select>
+          </div>
         </div>
-      </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </main>
-  </body>
+</body>
+
 </html>

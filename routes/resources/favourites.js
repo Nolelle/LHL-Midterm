@@ -15,20 +15,14 @@ const queryGetFavListingsByUserID = function (db, userID) {
   });
 };
 
-const addFavouriteForListing = (db, userID, listingID) => {
-  let query = `INSERT INTO favourites (user_id,listing_id) VALUES
-  ($1,$2)
-  `;
-  return db.query(query, [userID, listingID]).then((response) => {
-    return response;
-  });
-};
-
-const deleteFavouriteForListing = (db, userID, listingID) => {
-  let query = `DELETE FROM favourites
-  WHERE user_id = $1 AND listing_id = $2`;
-  return db.query(query, [userID, listingID]).then((response) => {
-    return response;
+const queryGetAllUserIDFavourites = function (db, userID) {
+  let query = `
+  SELECT *
+  FROM favourites
+  WHERE user_id = $1
+ `;
+  return db.query(query, [userID]).then((response) => {
+    return response.rows;
   });
 };
 
@@ -45,35 +39,16 @@ module.exports = (db) => {
       });
   });
 
-  router.post("/:id/addFavourite", (req, res) => {
-    console.log("req is :", req.body);
-    addFavouriteForListing(db, req.params.id, req.body.listingID)
-      .then(() => {
-        console.log(
-          `Added listing id ${req.body.listingID} to favourites table for user ${req.params.id}.`
-        );
-        res.send(
-          `Added listing id ${req.body.listingID} to favourites table for user ${req.params.id}.`
-        );
+  router.get("/users/:id", (req, res) => {
+    queryGetAllUserIDFavourites(db, req.params.id)
+      .then((userFavourites) => {
+        res.json(userFavourites);
       })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
+      .catch((error) => {
+        console.log(error);
+        res.send(error);
       });
   });
-  router.post("/:id/removeFavourite", (req, res) => {
-    console.log("req is :", req.body);
-    deleteFavouriteForListing(db, req.params.id, req.body.listingID)
-      .then(() => {
-        console.log(
-          `Removed listing id ${req.body.listingID} favourites table for user ${req.params.id}.`
-        );
-        res.send(
-          `Removed listing id${req.body.listingID} favourites table for user ${req.params.id}.`
-        );
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
-  });
+
   return router;
 };

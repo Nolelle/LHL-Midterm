@@ -24,37 +24,37 @@ module.exports = (makeRequest) => {
       });
   });
 
-  router.post("/:id/addFavourite", (req, res) => {
-    makeRequest(`http://localhost:8080/api/favourites/${userID}`)
-      .then((data) => {
-        const orderedListings = JSON.parse(data);
-        const templateVars = {
-          orderedListings,
-          emailCookie: req.cookies.email,
-          userID: req.cookies.userID,
-        };
-        res.render("favourites", templateVars);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  });
+  // router.post("/:id/addFavourite", (req, res) => {
+  //   makeRequest(`http://localhost:8080/api/favourites/${userID}`)
+  //     .then((data) => {
+  //       const orderedListings = JSON.parse(data);
+  //       const templateVars = {
+  //         orderedListings,
+  //         emailCookie: req.cookies.email,
+  //         userID: req.cookies.userID,
+  //       };
+  //       res.render("favourites", templateVars);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // });
 
-  router.post("/:id/removeFavourite", (req, res) => {
-    makeRequest(`http://localhost:8080/api/favourites/${userID}`)
-      .then((data) => {
-        const orderedListings = JSON.parse(data);
-        const templateVars = {
-          orderedListings,
-          emailCookie: req.cookies.email,
-          userID: req.cookies.userID,
-        };
-        res.render("favourites", templateVars);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  });
+  // router.post("/:id/removeFavourite", (req, res) => {
+  //   makeRequest(`http://localhost:8080/api/favourites/${userID}`)
+  //     .then((data) => {
+  //       const orderedListings = JSON.parse(data);
+  //       const templateVars = {
+  //         orderedListings,
+  //         emailCookie: req.cookies.email,
+  //         userID: req.cookies.userID,
+  //       };
+  //       res.render("favourites", templateVars);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // });
 
   //Favourites pagination stretch feature
   // router.get("/nextpage", (req, res) => {
