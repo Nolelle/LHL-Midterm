@@ -36,7 +36,15 @@
         <div class="single-listing-buttons">
           <!-- check logged in -->
           <!-- EJS here a bit clunky -->
-          <% if(userID && parseInt(userID)===listing.user_id){ %>
+          <%if (userID) { %>
+          <%if(!isFavourite) {%>
+            <button id='add-favourite-button' class="btn btn-primary">
+              Set as Favourite</button>
+            <% } else { %>
+              <button id='remove-favourite-button' class="btn btn-primary">
+                Remove Favourite</button>
+              <% } %>
+          <% if(parseInt(userID)===listing.user_id){ %>
             <%if(listing.sold) { %>
               <h3>This item is sold.</h3>
               <button id="mark-as-available-button" class="btn btn-primary">
@@ -49,16 +57,10 @@
                   Mark as sold
                 </button>
                 <% } %>
-                  <%if(!isFavourite) {%>
-                    <button id='add-favourite-button' class="btn btn-primary">
-                      Set as Favourite</button>
-                    <% } else { %>
-                      <button id='remove-favourite-button' class="btn btn-primary">
-                        Remove Favourite</button>
-                      <% } %>
                         <a type="submit" class="btn btn-primary"
                           href="http://localhost:8080/listings/<%=listing.id%>/edit">Edit</a>
                         <button id="delete-button" class="btn btn-primary">Delete</button>
+                        <% } %>
                         <% } %>
 
 
