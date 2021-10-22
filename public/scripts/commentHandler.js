@@ -3,6 +3,7 @@ const  createCommentElement = function (comment) {
   return `<div style="background-color: lightgray">
     <p>
       ${comment.msg_text}
+      user:${comment.user_id}
     </p>
 </div>`
 }
