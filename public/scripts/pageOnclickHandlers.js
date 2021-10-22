@@ -39,7 +39,6 @@ $(() => {
     event.preventDefault();
     let pageNumber = parseInt($("#pageNumber").text()) - 1;
     const url = `http://localhost:8080/api/listings/page/${pageNumber}`;
-    console.log("previous url", url);
     $.get(url)
       .then((listings) => {
         $(".listings").empty();

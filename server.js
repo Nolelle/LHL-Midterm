@@ -48,17 +48,15 @@ const favouriteAPIRoutes = require("./routes/resources/favourites");
 const commentAPIRoutes = require("./routes/resources/comments");
 const listingAPIRoutes = require("./routes/resources/listings");
 
-// use Routes
 // resource routes
 app.use("/api/favourites", favouriteAPIRoutes(db));
 app.use("/api/comments", commentAPIRoutes(db));
 app.use("/api/listings", listingAPIRoutes(db));
 app.use("/api/users", userAPIRoutes(db));
 
-
 // template routes
 app.use("/", indexRoutes(makeRequest));
-app.use("/login", loginRoutes(makeRequest));
+app.use("/login", loginRoutes());
 app.use("/logout", logoutRoutes());
 app.use("/favourites", favouritesRoutes(makeRequest));
 app.use("/createListing", createListingRoutes());

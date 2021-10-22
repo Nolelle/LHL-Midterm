@@ -6,12 +6,10 @@ const express = require("express");
 const router = express.Router();
 
 module.exports = (makeRequest) => {
-  //GET /favourites/:id
   router.get("/:id", (req, res) => {
     makeRequest(`http://localhost:8080/api/favourites/${req.params.id}`)
       .then((data) => {
         const orderedListings = JSON.parse(data);
-        console.log(orderedListings);
         const templateVars = {
           orderedListings,
           emailCookie: req.cookies.email,

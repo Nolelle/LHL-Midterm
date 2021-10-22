@@ -27,7 +27,6 @@ const queryGetAllUserIDFavourites = function (db, userID) {
 };
 
 module.exports = (db) => {
-  //GET /api/favourites/:id
   router.get("/:id", (req, res) => {
     queryGetFavListingsByUserID(db, req.params.id)
       .then((userFavouriteListings) => {
