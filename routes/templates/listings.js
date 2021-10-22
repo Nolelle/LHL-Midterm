@@ -58,7 +58,6 @@ module.exports = (makeRequest) => {
         templateVars["comments"] = JSON.parse(comments);
         makeRequest(`http://localhost:8080/api/listings/${req.params.id}`).then(
           (listing) => {
-            // console.log("in templates listing", JSON.parse(listing));
             templateVars["listing"] = JSON.parse(listing);
             makeRequest(
               `http://localhost:8080/api/favourites/users/${req.cookies.userID}`
@@ -71,9 +70,7 @@ module.exports = (makeRequest) => {
                     isFavourite = true;
                   }
                 }
-
                 templateVars["isFavourite"] = isFavourite;
-
                 res.render("singleListing", templateVars);
               })
               .catch((error) => {
@@ -96,7 +93,6 @@ module.exports = (makeRequest) => {
     makeRequest(`http://localhost:8080/api/listings/${req.params.id}`)
       .then((listing) => {
         templateVars["listing"] = JSON.parse(listing);
-        // TODO: Render editListing
         res.render("editListing", templateVars);
       })
       .catch((error) => {

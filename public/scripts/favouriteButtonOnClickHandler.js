@@ -6,7 +6,7 @@ $(() => {
   $("#remove-favourite-button").on("click", function (event) {
     event.preventDefault();
     const url = `/api/listings/${listingID}/removeFavourite`;
-    // const data = {};
+
     $.post(url)
       .then(() => {
         $(location).attr("href", windowURL);
