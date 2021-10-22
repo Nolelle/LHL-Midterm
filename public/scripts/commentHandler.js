@@ -8,20 +8,20 @@ const  createCommentElement = function (comment) {
 }
 
 $(() => {
-  $("#comment-form").on("submit", function (event) {
-    event.preventDefault();
-    const url = this.action
-    const $form = $(this)
-    const data = $form.serialize()
-    $.post(url, data)
-      .then((response) => {
-        const element = createCommentElement(response)
-        $("#comment-container").append(element)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  });
+    $("#comment-form").on("submit", function (event) {
+      event.preventDefault();
+      const url = this.action
+      const $form = $(this)
+      const data = $form.serialize()
+      $.post(url, data)
+        .then((response) => {
+          const element = createCommentElement(response)
+          $("#comment-container").append(element)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    });
 
 });
 

@@ -8,15 +8,15 @@ const router = express.Router();
 module.exports = (makeRequest) => {
   //GET /
   router.get("/", (req, res) => {
-    makeRequest(`http://localhost:8080/api/listings`)
+    makeRequest(`http://localhost:8080/api/listings/page/0`)
       .then((data) => {
         const orderedListings = JSON.parse(data);
         // TODO: IMPLEMENT PAGE STATUS BY setting a page cookie
-        res.cookie("PageOne", 1);
         const templateVars = {
           orderedListings,
           emailCookie: req.cookies.email,
-          userID: req.cookies.userID
+          userID: req.cookies.userID,
+          pageNumber: 1
         };
         res.render("index", templateVars);
       })
